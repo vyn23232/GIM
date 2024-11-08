@@ -1,0 +1,167 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-image: url("{% static 'accounts/background.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+
+        .LoginHermosisima {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .Rectangle3 {
+            width: 450px;
+            padding: 50px 40px;
+            background: rgb(255 255 255 / 92%);
+            border-radius: 26px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .Login {
+            color: #333;
+            font-size: 32px;
+            font-weight: 800;
+            margin: 20px 0 20px;
+        }
+
+        .EnterUsernameAndPassword {
+            color: #666;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .Component1 input,
+        .Component2 input {
+            width: 100%;
+            height: 50px;
+            padding-left: 15px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .ForgotPassword {
+            text-align: right;
+            margin-bottom: 2px;
+        }
+
+        .ForgotPassword a {
+            color: #4D2E8D;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        button {
+            width: 100%;
+            height: 50px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        button:first-of-type {
+            background: #4D2E8D;
+            border: none;
+            color: white;
+        }
+
+        button:last-of-type {
+            background: white;
+            color: #4D2E8D;
+            border: 2px solid #4D2E8D;
+        }
+
+        .or-divider {
+            margin: 10px 0;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .logo {
+            width: 190px;
+            height: 190px;
+            object-fit: cover;
+        }
+
+        .sign-up-button {
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px; /* Center the text vertically */
+    background: white;
+    color: #4D2E8D;
+    border: 2px solid #4D2E8D;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.sign-up-button:hover {
+    background: #4D2E8D;
+    color: white;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="LoginHermosisima">
+        <div class="Rectangle3">
+            <img src="{% static 'accounts/logo2.png' %}" alt="Logo" class="logo">
+            <div class="Login">LOGIN</div>
+            <div class="EnterUsernameAndPassword">Enter your Username and Password below</div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="Component1">
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+                <div class="Component2">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="ForgotPassword">
+                    <a href="{% url 'forgot_password' %}">Forgot Password?</a>
+                </div>
+                <button type="submit">LOG IN</button>
+                <div class="or-divider">OR</div>
+                <a href="{% url 'register' %}" class="sign-up-button">SIGN UP</a>
+            </form>
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

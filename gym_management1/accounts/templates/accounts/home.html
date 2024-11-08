@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Membership - Home</title>
+    {% load static %} <!-- Load static for images and other assets -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4; /* Light background for contrast */
+            color: #333;
+            overflow:  auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .body::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1px 1px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 90px; /* Adjust logo size */
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-item {
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            color: black;
+            transition: color 0.3s;
+        }
+
+        .nav-item:hover {
+            color: #8952F7; /* Color change on hover */
+        }
+
+        .account {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .account img {
+            width: 30px; /* Adjust account icon size */
+            height: 30px;
+        }
+
+        .join-now {
+            padding: 10px 20px;
+            background-color: #8952F7;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            position: relative; /* Make button clickable */
+            z-index: 2; /* Ensure button is above overlay */
+        }
+
+        .join-now:hover {
+            background-color: #7238c3; /* Darker shade on hover */
+        }
+
+        .hero {
+            position: relative; /* Keep it relative for overlay */
+            background-image: url("{% static 'accounts/homepage69.jpg' %}"); /* Hero image */
+            background-size: cover;
+            background-position: center;
+            height: 60vh; /* Full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero::after { /* Gradient overlay */
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 1; /* Ensure overlay is above the image but below text */
+        }
+
+        .hero h1,
+        .hero p {
+            z-index: 2; /* Bring text above overlay */
+        }
+
+        .hero .cta-button {
+            padding: 15px 30px;
+            background-color: rgba(137, 82, 247, 0.8); /* Semi-transparent background */
+            border: none;
+            border-radius: 25px;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 2; /* Ensure button is above overlay */
+            position: relative; /* Make button clickable */
+        }
+
+        .hero .cta-button:hover {
+            background-color: #7238c3; /* Darker shade on hover */
+        }
+
+        .content-section {
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .services, .testimonials, .membership-plans {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .service-card, .testimonial-card, .membership-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover, .testimonial-card:hover, .membership-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <img class="logo" src="{% static 'accounts/logo.png' %}" alt="Gym Logo">
+        <nav class="nav">
+            <a href="{% url 'about' %}" class="nav-item">About</a>
+            <a href="#" class="nav-item">Gym Benefits</a>
+            <a href="#" class="nav-item">Membership</a>
+            <a href="#" class="nav-item">Book A Trainer</a>
+        </nav>
+        <div class="account">
+            <img src="{% static 'accounts/user.png' %}" alt="Account Icon">
+            <span>My Account</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Get Fit, Stay Strong</h1>
+        <p>Join our community and achieve your fitness goals!</p>
+        <a href="{% url 'login' %}" class="join-now">Join Now</a>
+    </section>
+
+    <main class="content-section">
+        <section class="services">
+            <h2>Our Services</h2>
+            <div class="service-card">Personal Training</div>
+            <div class="service-card">Group Classes</div>
+            <div class="service-card">Nutrition Counseling</div>
+        </section>
+
+        <section class="testimonials">
+            <h2>What Our Members Say</h2>
+            <div class="testimonial-card">"This gym changed my life!" - Jane Doe</div>
+            <div class="testimonial-card">"Amazing trainers and great community!" - John Smith</div>
+        </section>
+
+        <section class="membership-plans">
+            <h2>Membership Plans</h2>
+            <div class="membership-card">Basic Plan - $29/month</div>
+            <div class="membership-card">Premium Plan - $49/month</div>
+            <div class="membership-card">VIP Plan - $79/month</div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Gym Membership. All rights reserved.</p>
+        <p>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </p>
+    </footer>
+
+</body>
+</html>
