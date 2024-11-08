@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #efefef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .payment-container {
+            background: #f4f4f4;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #4D2E8D;
+            margin: 0;
+        }
+        .header p {
+            font-size: 16px;
+            color: #666;
+        }
+        .payment-details {
+            display: flex; /* Flexbox layout */
+            justify-content: space-between; /* Space between columns */
+            align-items: flex-start; /* Align items to the start */
+            margin-bottom: 25px;
+        }
+        .logos-section {
+            text-align: center;
+            margin-left: 20px; /* Space between details and logos */
+        }
+        .logos-section p {    
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .logos-section img {
+            width: 290px; /* Fixed width */
+            height: 120px; /* Fixed height */
+            margin: 0 5px; /* Space between logos */
+            border: 0.5px solid #efefef; /* Outline color and thickness */
+            border-radius: 3px; /* Optional: rounded corners */
+        }
+        .details-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #4D2E8D;
+            margin-bottom: 10px;
+        }
+        .details-section p {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #555;
+        }
+        .payment-method-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #4D2E8D;
+            margin-bottom: 10px;
+        }
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .payment-method:hover {
+            background-color: #f3f3f3;
+            border-color: #4D2E8D;
+        }
+        .payment-method input[type="radio"] {
+            margin-right: 15px;
+            accent-color: #4D2E8D;
+            transform: scale(1.2);
+        }
+        .payment-method img {
+            width: 30px;
+            height: 20px; 
+            margin-right: 10px; 
+        }
+        .submit-section {
+            text-align: center;
+        }
+        .pay-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #4D2E8D;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .pay-button:hover {
+            background-color: #218838;
+        }
+        .pay-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="header">
+            <h2>Make a Payment</h2>
+            <p>Complete your membership renewal or class booking payment securely</p>
+        </div>
+
+        <div class="payment-details">
+            <div class="details-section">
+                <h3>Payment Details</h3>
+                <p><strong>Membership Type:</strong> Premium</p>
+                <p><strong>Amount Due:</strong> $50.00</p>
+                <p><strong>Due Date:</strong> 2024-11-30</p>
+            </div>
+
+            <div class="logos-section">
+                <p style="margin-top: 25px;">We accept these payments:</p>
+                <img src="{% static 'images/ppp.png' %}" alt="Visa Logo"> <!-- Update this path -->
+            </div>
+        </div>
+
+        <div class="payment-method-section">
+            <h3>Select Payment Method</h3>
+            <label class="payment-method">
+                <input type="radio" name="paymentMethod" value="creditCard" required>
+                <img src="{% static 'images/visa.png' %}" alt="Visa Logo"> <!-- Update this path -->
+                <span>Credit Card</span>
+            </label>
+            <label class="payment-method">
+                <input type="radio" name="paymentMethod" value="paypal">
+                <img src="{% static 'images/paypal.png' %}" alt="PayPal Logo"> <!-- Update this path -->
+                <span>PayPal</span>
+            </label>
+            <label class="payment-method">
+                <input type="radio" name="paymentMethod" value="bankTransfer">
+                <img src="{% static 'images/bt.png' %}" alt="Bank Transfer Logo"> <!-- Update this path -->
+                <span>Bank Transfer</span>
+            </label>
+        </div>
+
+        <div class="submit-section">
+            <button class="pay-button" onclick="redirectToSelectedPayment()">Proceed to Pay</button>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 GIM Membership System. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        function redirectToSelectedPayment() {
+            // Check which payment method is selected
+            const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
+            
+            if (selectedMethod) {
+                // Redirect based on selected payment method
+                let page = '';
+                switch (selectedMethod.value) {
+                    case 'creditCard':
+                        page = '{% url "credit_card" %}'; // Use Django URL template tag
+                        break;
+                    case 'paypal':
+                        page = '{% url "paypal" %}'; // Use Django URL template tag
+                        break;
+                    case 'bankTransfer':
+                        page = '{% url "bank_transfer" %}'; // Use Django URL template tag
+                        break;
+                }
+                window.location.href = page; // Redirect to the chosen page
+            } else {
+                alert("Please select a payment method.");
+            }
+        }
+    </script>
+</body>
+</html>
