@@ -6,6 +6,7 @@ from django.contrib import messages  # For flash messages
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
+from django.views import View
 
 # Existing views
 def register(request):
@@ -44,6 +45,15 @@ def bank_transfer(request):
     return render(request, 'accounts/bank_transfer.html')
 
 # TOVI'S VIEWS
+
+# Home view
+def home_view(request):
+    return render(request, 'accounts/home.html')
+
+# About view
+def about_view(request):
+    return render(request, 'accounts/about.html')
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')

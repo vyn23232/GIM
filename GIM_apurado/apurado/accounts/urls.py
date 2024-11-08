@@ -3,24 +3,32 @@ from .views import (
     register, profile, membership_management, add_user, 
     payment_options, credit_card, paypal, bank_transfer, 
     login_view, forgot_password, send_reset_link,
-    process_credit_card_payment, payment_confirmation, payment_error  # New views
+    process_credit_card_payment, payment_confirmation, payment_error,  # New views
+    home_view,about_view  # Add the home_view import here
 )
 
 urlpatterns = [
+    # Home view - this will direct to the homepage
+    path('', home_view, name='home'),  # Root URL (home)
+
+    # User management URLs
     path('register/', register, name='register'),
     path('profile/', profile, name='profile'),
     path('membership/', membership_management, name='membership_management'),
     path('add_user/', add_user, name='add_user'),
-    path('payment/', payment_options, name='payment_options'), 
+
+    # Payment-related views
+    path('payment/', payment_options, name='payment_options'),
     path('credit/', credit_card, name='credit_card'),
-    path('process_credit_card_payment/', process_credit_card_payment, name='process_credit_card_payment'),  # New URL
-    path('payment_confirmation/', payment_confirmation, name='payment_confirmation'),  # New URL
-    path('payment_error/', payment_error, name='payment_error'),  # New URL
+    path('process_credit_card_payment/', process_credit_card_payment, name='process_credit_card_payment'),
+    path('payment_confirmation/', payment_confirmation, name='payment_confirmation'),
+    path('payment_error/', payment_error, name='payment_error'),
     path('paypal/', paypal, name='paypal'),
     path('bank/', bank_transfer, name='bank_transfer'),
-    
-    # TOVI'S URLs
+
+    # TOVI's URLs
     path('login/', login_view, name='login'),
     path('forgot_password/', forgot_password, name='forgot_password'),
     path('send_reset_link/', send_reset_link, name='send_reset_link'),
+    path('about/', about_view, name='about'),
 ]
