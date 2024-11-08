@@ -1,10 +1,10 @@
+{% load static %} 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym Membership - Home</title>
-    {% load static %} <!-- Load static for images and other assets -->
     <style>
         * {
             margin: 0;
@@ -92,7 +92,7 @@
 
         .hero {
             position: relative; /* Keep it relative for overlay */
-            background-image: url("{% static 'accounts/homepage69.jpg' %}"); /* Hero image */
+            background-image: url("{% static 'images/homepage69.jpg' %}"); /* Hero image */
             background-size: cover;
             background-position: center;
             height: 60vh; /* Full viewport height */
@@ -179,7 +179,7 @@
 <body>
 
     <header class="header">
-        <img class="logo" src="{% static 'accounts/logo.png' %}" alt="Gym Logo">
+        <img class="logo" src="{% static 'images/logo.png' %}" alt="Gym Logo">
         <nav class="nav">
             <a href="{% url 'about' %}" class="nav-item">About</a>
             <a href="#" class="nav-item">Gym Benefits</a>
@@ -187,7 +187,7 @@
             <a href="#" class="nav-item">Book A Trainer</a>
         </nav>
         <div class="account">
-            <img src="{% static 'accounts/user.png' %}" alt="Account Icon">
+            <img src="{% static 'images/user.png' %}" alt="Account Icon">
             <span>My Account</span>
         </div>
     </header>
