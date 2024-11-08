@@ -45,10 +45,10 @@
         }
         .form-container::-webkit-scrollbar {
             width: 0;
-            background: transparent; /* Ensure the scrollbar background is transparent */
+            background: transparent;
         }
         .form-container {
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
         }
 
         .hidden-scroll {
@@ -57,7 +57,7 @@
             transition: max-height 0.3s ease;
         }
         .form-container:hover .hidden-scroll {
-            max-height: 300px; /* Adjust based on the desired visible height when scrolling */
+            max-height: 300px;
             overflow-y: auto;
         }
 
@@ -151,7 +151,6 @@
                 <input type="email" id="email" name="email" placeholder="Email" required>
             </div>
 
-            <!--<div class="hidden-scroll">-->
                 <div class="form-field">
                     <label for="firstname">First Name:</label>
                     <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
@@ -170,26 +169,12 @@
                 <div class="form-field">
                     <label for="contact">Phone number:</label>
                     <input type="text" id="contact" name="contact" placeholder="Phone number" required>
-                </div>
-            <!--</div>-->
-            
+                </div>          
             <div class="form-action" onclick="location.href='/accounts/login'">
                 <button type="submit">
                     SIGN UP
                 </button>
             </div>
-
-            <!--<div class="alt-login">
-                <p>or continue with</p>
-                <div style="display: flex; justify-content: center; gap: 10px;">
-                    <button class="social-button">
-                        <img src="{% static 'images/google.png' %}" alt="Google Login">
-                    </button>
-                    <button class="social-button">
-                        <img src="{% static 'images/facebook.png' %}" alt="Facebook Login">
-                    </button>
-                </div>
-            </div>-->
         </div>
     </div>
 </body>
