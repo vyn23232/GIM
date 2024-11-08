@@ -1,0 +1,168 @@
+{% load static %}  <!-- Load static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'accounts/style.css' %}">  <!-- Optional CSS file link -->
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-image: url('{% static "images/background2.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+
+        .LoginHermosisima {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .Rectangle3 {
+            width: 450px;
+            height: 80vh;
+            padding: 50px 40px;
+            background: rgb(255 255 255 / 92%);
+            border-radius: 26px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+            overflow-y: auto; /* Ensure content is scrollable if it exceeds the container's height */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .Rectangle3::-webkit-scrollbar {
+            width: 0;
+            background: transparent; /* Ensure the scrollbar background is transparent */
+        }
+        .Rectangle3 {
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .Login {
+            color: #333;
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .EnterUsernameAndPassword {
+            color: #666;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .Component1 {
+            text-align: left; /* Align labels to the left */
+        }
+        .Component2 {
+            text-align: left; /* Align labels to the left */
+        }
+
+        .Component1 input,
+        .Component2 input {
+            width: 100%;
+            height: 50px;
+            padding-left: 15px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .ForgotPassword {
+            text-align: right;
+            margin-bottom: 2px;
+        }
+
+        .ForgotPassword a {
+            color: #4D2E8D;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        button {
+            width: 100%;
+            height: 50px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        button:first-of-type {
+            background: #4D2E8D;
+            border: none;
+            color: white;
+        }
+
+        button:first-of-type:hover {
+            background: #6A4F9A;
+        }
+
+        button:last-of-type {
+            background: white;
+            color: #4D2E8D;
+            border: 2px solid #4D2E8D;
+        }
+        button:last-of-type:hover {
+            background: #6A4F9A;
+        }
+
+        .or-divider {
+            margin: 10px 0;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .logo {
+            width: 190px;
+            height: 190px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="LoginHermosisima">
+        <div class="Rectangle3">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
+            <div class="Login">LOGIN</div>
+            <div class="EnterUsernameAndPassword">Enter your Username and Password below</div>
+            <form method="POST">  <!-- Wrap inputs in form -->
+                {% csrf_token %}
+                <div class="Component1">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Username" required>
+                </div>
+                <div class="Component2">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="ForgotPassword">
+                    <a href="{% url 'forgot_password' %}">Forgot Password?</a>  <!-- Updated link -->
+                </div>
+                <button type="submit">LOG IN</button>
+                <div class="or-divider">OR</div>
+                <button type="button" onclick="location.href='/accounts/register'">SIGNUP</button> <!-- Change to type="button" -->
+            </form>
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>  <!-- Display error message -->
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
