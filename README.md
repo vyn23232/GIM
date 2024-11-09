@@ -18,4 +18,3 @@ The Membership Management System is a web application built with Django that all
 # Technologies Used
 - **Django**: A high-level Python web framework for building the backend of the application.
 - **HTML, CSS, JavaScript**: For front-end development, ensuring a smooth and interactive user interface.
-- **SQLite3**: The default database for Django, used to store user and membership information.
