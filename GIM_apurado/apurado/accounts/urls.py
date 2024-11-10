@@ -31,4 +31,6 @@ urlpatterns = [
     path('send_reset_link/', send_reset_link, name='send_reset_link'),
     path('home/', home_view, name='home'),
     path('about/', about_view, name='about'),  # Add this line for about_view
+
+    # SACEDA'S URLs
 ]

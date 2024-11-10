@@ -130,3 +130,6 @@ def process_payment(data):
     # Simulate processing logic. This would be where you integrate with a real payment API.
     # For now, just return True to simulate success.
     return True
+
+
+# SACEDA's VIEWS
