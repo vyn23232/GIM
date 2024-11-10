@@ -154,7 +154,7 @@
                 <div class="ForgotPassword">
                     <a href="{% url 'forgot_password' %}">Forgot Password?</a>  <!-- Updated link -->
                 </div>
-                <button type="submit">LOG IN</button>
+                <button type="submit" onclick="location.href='/accounts/home'">LOG IN</button>
                 <div class="or-divider">OR</div>
                 <button type="button" onclick="location.href='/accounts/register'">SIGNUP</button> <!-- Change to type="button" -->
             </form>
