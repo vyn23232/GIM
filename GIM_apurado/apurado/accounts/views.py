@@ -1,14 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import User
-from django.http import HttpResponse
-from django.urls import reverse  # For URL reversal
-from django.contrib import messages  # For flash messages
-from django.core.mail import send_mail
+from .models import User, Dashboard, Booking, Payment
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.hashers import make_password
-from django.views import View
 
 # Existing views
+
 def register(request):
     if request.method == 'POST':
         pass  # Handle registration logic
@@ -126,10 +123,29 @@ def payment_confirmation(request):
 def payment_error(request):
     return render(request, 'accounts/payment_error.html')
 
-def process_payment(data):
-    # Simulate processing logic. This would be where you integrate with a real payment API.
-    # For now, just return True to simulate success.
-    return True
+# Dashboard view for logged-in users
+@login_required
+def dashboard_view(request):
+    user = request.user  # Get the logged-in user
 
+    try:
+        # Get the user's dashboard data (assuming one-to-one relationship with Dashboard)
+        dashboard = Dashboard.objects.get(user=user)
+        
+        # Get upcoming bookings for the user (assuming status 'upcoming' for pending bookings)
+        upcoming_bookings = Booking.objects.filter(user=user, status='upcoming')
 
-# SACEDA's VIEWS
+        # Get payment history (sorted by most recent)
+        payment_history = Payment.objects.filter(attendance__user=user).order_by('-payment_date')
+
+        # Pass data to the template
+        return render(request, 'accounts/dashboard.html', {
+            'dashboard': dashboard,
+            'upcoming_bookings': upcoming_bookings,
+            'payment_history': payment_history,
+        })
+
+    except Dashboard.DoesNotExist:
+        # If no dashboard is found for the user, redirect them with an error message
+        messages.error(request, "Dashboard not found. Please contact support.")
+        return redirect('home_view')  # Redirect to home or another page

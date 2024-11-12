@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section ul li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            Welcome to Your Dashboard, {{ user.username }}!
+        </div>
+
+        <!-- Membership Details Section -->
+        <div class="section">
+            <h3>Membership Status</h3>
+            <p>Status: {{ dashboard.membership_status }}</p>
+            <p>Upcoming Bookings: {{ upcoming_bookings.count }}</p>
+        </div>
+
+        <!-- Upcoming Bookings Section -->
+        <div class="section">
+            <h3>Your Upcoming Bookings</h3>
+            <ul>
+                {% for booking in upcoming_bookings %}
+                    <li>{{ booking.class_id.class_name }} on {{ booking.booking_date }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Payment History Section -->
+        <div class="section">
+            <h3>Payment History</h3>
+            <ul>
+                {% for payment in payment_history %}
+                    <li>Paid {{ payment.amount }} on {{ payment.payment_date }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

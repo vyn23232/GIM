@@ -76,7 +76,7 @@
             gap: 10px;
             justify-content: center;
         }
-        .edit-btn, .save-btn, .home-btn {
+        .edit-btn, .save-btn, .home-btn, .dashboard-btn {
             margin-top: 15px;
             padding: 12px 20px;
             font-size: 16px;
@@ -88,7 +88,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .edit-btn:hover, .save-btn:hover, .home-btn:hover {
+        .edit-btn:hover, .save-btn:hover, .home-btn:hover, .dashboard-btn:hover {
             background-color: #218838;
         }
 
@@ -123,7 +123,7 @@
             .profile-container {
                 width: 90%;
             }
-            .edit-btn, .save-btn, .home-btn {
+            .edit-btn, .save-btn, .home-btn, .dashboard-btn {
                 padding: 10px;
                 font-size: 14px;
             }
@@ -140,6 +140,8 @@
             <div class="button-container">
                 <button class="home-btn" onclick="location.href='/accounts/home'">Home</button>
                 <button class="edit-btn" id="editBtn">Edit Profile</button>
+                <!-- Dashboard Button -->
+                <button class="dashboard-btn" onclick="location.href='/accounts/dashboard'">Go to Dashboard</button>
             </div>
         </div>
         
