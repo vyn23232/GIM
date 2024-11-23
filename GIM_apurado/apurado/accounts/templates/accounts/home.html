@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym Membership - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,31 +13,36 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
+        body, html {
+            font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4; /* Light background for contrast */
             color: #333;
-            overflow: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            overflow: hidden; /* Hide scrollbars */
+            height: 100%; /* Ensure full height of the body */
+        }
+
+        body {
+            overflow-y: scroll; /* Keep vertical scrolling */
+            -ms-overflow-style: none; /* Hides scrollbar in IE */
+            scrollbar-width: none; /* Hides scrollbar in Firefox */
         }
 
         body::-webkit-scrollbar {
-            width: 0;
-            background: transparent;
+            display: none; /* Hide scrollbar in WebKit browsers like Chrome, Safari */
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1px 1px;
-            background-color: white;
+            padding: 0; /* Remove all padding */
+            background-color: rgb(255 255 255 / 92%);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
-        }
+            height: 65px; /* Set a fixed height for the header */
+        }  
 
         .logo {
             width: 90px; /* Adjust logo size */
@@ -64,9 +70,9 @@
             align-items: center;
             gap: 6px;
             text-decoration: none;
-            color: black;
             font-size: 18px;
             font-weight: 700;
+            padding-right: 30px;
         }
 
         .account img {
@@ -85,6 +91,7 @@
             transition: background-color 0.3s;
             position: relative; /* Make button clickable */
             z-index: 2; /* Ensure button is above overlay */
+            margin-top: 14px;
         }
 
         .join-now:hover {
@@ -171,10 +178,11 @@
         }
 
         .footer {
-            background-color: #333;
+            background-color: #8952F7;
             color: white;
-            padding: 20px;
             text-align: center;
+            height: 70px;
+            padding-top: 10px;
         }
 
         .footer a {
