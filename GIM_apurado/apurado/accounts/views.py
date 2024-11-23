@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import User, Dashboard, Booking, Payment
 from django.contrib.auth.decorators import login_required
