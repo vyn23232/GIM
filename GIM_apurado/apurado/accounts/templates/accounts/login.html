@@ -1,5 +1,4 @@
 {% load static %}  <!-- Load static files -->
-<!--removed unecessary url styles-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -133,6 +132,12 @@
             height: 190px;
             object-fit: cover;
         }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -152,15 +157,15 @@
                     <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
                 <div class="ForgotPassword">
-                    <a href="{% url 'forgot_password' %}">Forgot Password?</a>  <!-- Updated link -->
+                    <a href="{% url 'forgot_password' %}">Forgot Password?</a>
                 </div>
-                <button type="submit" onclick="location.href='/accounts/home'">LOG IN</button>
+                <button type="submit">LOG IN</button>
                 <div class="or-divider">OR</div>
-                <button type="button" onclick="location.href='/accounts/register'">SIGNUP</button> <!-- Change to type="button" -->
+                <button type="button" onclick="location.href='/accounts/register'">SIGNUP</button>
+                {% if error %}
+                    <p class="error-message">{{ error }}</p>
+                {% endif %}
             </form>
-            {% if error %}
-                <p style="color: red;">{{ error }}</p>  <!-- Display error message -->
-            {% endif %}
         </div>
     </div>
 </body>

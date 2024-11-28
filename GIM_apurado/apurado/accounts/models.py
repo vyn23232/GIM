@@ -1,4 +1,15 @@
 from django.db import models
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import BaseUserManager
+
+
+
+
+
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+    redirect_authenticated_user = True
+    next_page = 'home'
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=30)
@@ -14,8 +25,7 @@ class User(models.Model):
         return self.username
 
 class Dashboard(models.Model):
-    dashboard_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='dashboard')  # Mandatory one-to-one
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='dashboard')
     membership_status = models.CharField(max_length=50)
     upcoming_bookings = models.IntegerField(default=0)
     payment_history = models.CharField(max_length=50)
@@ -57,3 +67,18 @@ class Payment(models.Model):
     payment_date = models.DateTimeField(auto_now_add=True)
     payment_method = models.CharField(max_length=50)
     status = models.CharField(max_length=50)
+
+class MyUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, password, **extra_fields)

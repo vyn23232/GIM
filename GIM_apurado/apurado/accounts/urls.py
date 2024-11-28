@@ -1,14 +1,20 @@
 from django.urls import path
 from .views import (
-    register, profile, membership_management, add_user, 
-    payment_options, credit_card, paypal, bank_transfer, 
+    register, profile, membership_management, add_user,
+    payment_options, credit_card, paypal, bank_transfer,
     login_view, forgot_password, send_reset_link, home_view, about_view,
     process_credit_card_payment, payment_confirmation, payment_error, dashboard_view
 )
+from .views import payment_confirmation 
+from .views import home2  # Import the home2 view
 
 urlpatterns = [
-    # Home view - this will direct to the homepage
-    path('', home_view, name='home'),  # Root URL (home)
+    # Home view
+    path('', home_view, name='home'),  # Root URL for the homepage
+    path('login/', login_view, name='login'),
+
+    # Add this line for the home2 page:
+    path('home2/', home2, name='home2'),  # URL for home2 page
 
     # User management URLs
     path('register/', register, name='register'),
@@ -25,12 +31,13 @@ urlpatterns = [
     path('paypal/', paypal, name='paypal'),
     path('bank/', bank_transfer, name='bank_transfer'),
 
-    # TOVI's URLs
-    path('login/', login_view, name='login'),
+    # Authentication-related views
     path('forgot_password/', forgot_password, name='forgot_password'),
     path('send_reset_link/', send_reset_link, name='send_reset_link'),
+
+    # Informational views
     path('about/', about_view, name='about'),
-    path('dashboard/', dashboard_view, name='dashboard'),  # Dashboard URL
-    # SACEDA'S URLs
-    # Other views can be added below
+
+    # Dashboard view
+    path('dashboard/', dashboard_view, name='dashboard_view'),
 ]
