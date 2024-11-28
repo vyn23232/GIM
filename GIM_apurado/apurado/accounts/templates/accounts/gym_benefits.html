@@ -1,0 +1,291 @@
+{% load static %}  <!-- Load static files -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Gym Benefits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-image: url('{% static "images/background2.jpg" %}');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            max-width: 1700px;
+            margin: 30px auto;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {    
+            font-size: 42px;
+            color: #4D2E8D;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .card {
+            width: 300px;
+            height: 420px;
+            perspective: 1000px;
+            position: relative;
+            margin: 20px;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transition: transform 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card-front img {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 20px;
+        }
+
+        .card-front h3 {
+            font-size: 20px;
+            color: #4D2E8D;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .card-front p {
+            font-size: 16px;
+            color: #555;
+            text-align: center;
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+
+        .card-back {
+            color: #000000;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .card-back h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card-back p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 40px auto 0;
+            padding: 12px 24px;
+            background-color: #4D2E8D;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: #3a1f6f;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 90%;
+                max-width: 350px;
+            }
+
+            .back-button {
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gym Benefits</h1>
+        <div class="card-container">
+            <!-- Card 1 -->
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="{% static 'images/health.png' %}" alt="Health Icon">
+                        <h3>Improved Physical Health</h3>
+                        <p>Enhance your fitness through regular exercise routines.</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>Details</h3>
+                        <p>Strengthen muscles, improve cardiovascular health, and boost energy levels.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="{% static 'images/mental.png' %}" alt="Mental Health Icon">
+                        <h3>Mental Health Benefits</h3>
+                        <p>Reduce stress and improve your mental clarity.</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>Details</h3>
+                        <p>Regular workouts help release endorphins and lower stress levels.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="{% static 'images/community.png' %}" alt="Community Icon">
+                        <h3>Community Support</h3>
+                        <p>Stay motivated with a supportive gym community.</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>Details</h3>
+                        <p>Connect with like-minded individuals and share fitness goals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="{% static 'images/training.png' %}" alt="Training Icon">
+                        <h3>Personalized Training</h3>
+                        <p>Get tailored workout programs suited for your goals.</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>Details</h3>
+                        <p>Expert trainers create personalized plans to help you excel.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="{% static 'images/equipment.png' %}" alt="Equipment Icon">
+                        <h3>State-of-the-Art Equipment</h3>
+                        <p>Access modern and well-maintained gym equipment.</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>Details</h3>
+                        <p>Experience diverse equipment that suits all workout types.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="{% static 'images/flexibility.png' %}" alt="Flexibility Icon">
+                        <h3>Flexible Hours</h3>
+                        <p>Work out at your convenience with flexible gym timings.</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>Details</h3>
+                        <p>We are open early mornings and late evenings to fit your schedule.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="{% static 'images/classes.png' %}" alt="Classes Icon">
+                        <h3>Group Classes</h3>
+                        <p>Join dynamic group classes for extra motivation.</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>Details</h3>
+                        <p>From yoga to HIIT, we offer diverse classes to keep you engaged.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="{% static 'images/discount.png' %}" alt="Discount Icon">
+                        <h3>Exclusive Discounts</h3>
+                        <p>Save more with special offers and membership perks.</p>
+                    </div>
+                    <div class="card-back">
+                        <h3>Details</h3>
+                        <p>Enjoy discounts on fitness gear, supplements, and classes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="{% url 'home2' %}" class="back-button">Back to Home</a>
+    </div>
+</body>
+</html>

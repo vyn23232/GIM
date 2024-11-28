@@ -189,9 +189,12 @@ def home_view(request):
 def about_view(request):
     return render(request, 'accounts/about.html')
 
+# Gym Benefits
+def benefits(request):
+    return render(request, 'accounts/gym_benefits.html')
 
 # Forgot password view
-def forgot_password(request):
+#def forgot_password(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         # Logic to send the password reset link would go here
@@ -200,7 +203,7 @@ def forgot_password(request):
 
 
 # Send reset link view
-def send_reset_link(request):
+#def send_reset_link(request):
     if request.method == 'POST':
         email = request.POST.get('email')
 
