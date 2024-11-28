@@ -203,8 +203,12 @@
             <a href="#" class="nav-item">Book A Trainer</a>
         </nav>
         <a href="{% url 'profile' %}" class="account">
-            
-            
+            <img src="{% static 'images/user.png' %}" alt="Account Icon">
+            {% if user.is_authenticated %}
+                <span>{{ user.first_name }}</span>
+            {% else %}
+                <span>My Account</span>
+            {% endif %}
         </a>
     </header>
 
@@ -215,7 +219,7 @@
         </video>
         <h1>Get Fit, Stay Strong</h1>
         <p>Join our community and achieve your fitness goals!</p>
-        <a href="{% url 'login' %}" class="join-now">Join Now</a>
+        
     </section>
 
     <main class="content-section">
