@@ -67,7 +67,7 @@ def login_view(request):
 
     return render(request, 'accounts/login.html')  # Render the login template for GET requests
 
-def forgot_password(request):
+#def forgot_password(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         print(f"Email submitted: {email}")  # Debug print statement
@@ -77,7 +77,7 @@ def forgot_password(request):
     return render(request, 'accounts/forgot_password.html')  # Render the forgot password template for GET requests
 
 # Send reset link view
-def send_reset_link(request):
+#def send_reset_link(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         

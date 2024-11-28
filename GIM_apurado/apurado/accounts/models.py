@@ -57,3 +57,4 @@ class Payment(models.Model):
     payment_date = models.DateTimeField(auto_now_add=True)
     payment_method = models.CharField(max_length=50)
     status = models.CharField(max_length=50)
+

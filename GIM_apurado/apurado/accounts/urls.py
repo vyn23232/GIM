@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     register, profile, membership_management, add_user, 
     payment_options, credit_card, paypal, bank_transfer, 
-    login_view, forgot_password, send_reset_link, home_view, about_view,
+    login_view, home_view, about_view,
     process_credit_card_payment, payment_confirmation, payment_error, dashboard_view
 )
 
@@ -27,8 +27,8 @@ urlpatterns = [
 
     # TOVI's URLs
     path('login/', login_view, name='login'),
-    path('forgot_password/', forgot_password, name='forgot_password'),
-    path('send_reset_link/', send_reset_link, name='send_reset_link'),
+    #path('forgot_password/', forgot_password, name='forgot_password'),
+    #path('send_reset_link/', send_reset_link, name='send_reset_link'),
     path('about/', about_view, name='about'),
     path('dashboard/', dashboard_view, name='dashboard'),  # Dashboard URL
     # SACEDA'S URLs

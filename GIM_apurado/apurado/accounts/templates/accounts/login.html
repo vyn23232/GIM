@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-image: url('{% static "images/background2.jpg" %}');
             background-size: cover;
             background-position: center;
@@ -28,7 +29,7 @@
         }
 
         .Rectangle3 {
-            width: 450px;
+            width: 400px;
             height: 80vh;
             padding: 50px 40px;
             background: rgb(255 255 255 / 92%);
@@ -73,6 +74,7 @@
 
         .Component1 input,
         .Component2 input {
+            font-family: 'Poppins', sans-serif;
             width: 95%;
             height: 50px;
             padding-left: 15px;
@@ -150,9 +152,6 @@
                 <div class="Component2">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" placeholder="Password" required>
-                </div>
-                <div class="ForgotPassword">
-                    <a href="{% url 'forgot_password' %}">Forgot Password?</a>  <!-- Updated link -->
                 </div>
                 <button type="submit" onclick="location.href='/accounts/home'">LOG IN</button>
                 <div class="or-divider">OR</div>
