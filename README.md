@@ -9,7 +9,7 @@ The Membership Management System is a web application built with Django that all
 - **Gantt Chart**: [View Gantt Chart](https://drive.google.com/file/d/1dy-xeEKZtHsnG8stu4BsWxdPTAubW09s/view?usp=sharing)
 
 # Key Features
-- User Management: Allows adding and viewing user details, including name, email, mobile number, and gym class subscription.
+- Admin User Management: Allows adding and viewing user details, including name, email, mobile number, and gym class subscription.
 - Membership Management: Tracks membership details such as membership type, start and end dates, and the active status.
 - User-Membership Relationship: Each user can have multiple memberships associated with different gym classes.
 - Dynamic User and Membership Updates: Admins can update user details and membership statuses directly in the application.
@@ -18,3 +18,4 @@ The Membership Management System is a web application built with Django that all
 # Technologies Used
 - **Django**: A high-level Python web framework for building the backend of the application.
 - **HTML, CSS, JavaScript**: For front-end development, ensuring a smooth and interactive user interface.
+
