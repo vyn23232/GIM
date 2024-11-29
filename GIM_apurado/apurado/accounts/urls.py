@@ -1,12 +1,10 @@
 from django.urls import path
 from .views import (
-    register, profile, membership_management, add_user,
+    register, profile_view, membership_management, add_user,  # Updated profile import
     payment_options, credit_card, paypal, bank_transfer,
     login_view, home_view, about_view,
-    process_credit_card_payment, payment_confirmation, payment_error, dashboard_view, benefits
+    process_credit_card_payment, payment_confirmation, payment_error, dashboard_view, benefits, home2
 )
-from .views import payment_confirmation 
-from .views import home2  # Import the home2 view
 
 urlpatterns = [
     # Home view
@@ -18,7 +16,7 @@ urlpatterns = [
 
     # User management URLs
     path('register/', register, name='register'),
-    path('profile/', profile, name='profile'),
+    path('profile/', profile_view, name='profile'),  # Use the updated profile view function
     path('membership/', membership_management, name='membership_management'),
     path('add_user/', add_user, name='add_user'),
 

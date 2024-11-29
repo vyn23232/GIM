@@ -84,7 +84,9 @@ def profile(request):
 
     user = get_object_or_404(User, user_id=user_id)
     return render(request, 'accounts/profile.html', {'user': user})
-
+def profile_view(request):
+    # The authenticated user is already available via `request.user`
+    return render(request, 'accounts/profile.html', {'user': request.user})
 
 # Dashboard view
 @login_required
