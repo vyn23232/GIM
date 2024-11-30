@@ -1,10 +1,11 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>User Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -20,131 +21,107 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Change to min-height */
+            min-height: 100vh;
             color: #333;
-            overflow: auto; /* Allow scrolling */
         }
         .profile-container {
             background: rgb(255 255 255 / 92%);
             border-radius: 15px;
             box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 100px;
-            width: 900px;
-            max-height: 90vh; /* Set a max height */
-            overflow-y: auto; /* Allow vertical scrolling */
+            padding: 50px;
+            width: 90%;
+            max-width: 800px;
             text-align: center;
-            animation: fadeIn 0.5s ease-in;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            scrollbar-width: none;
-            -ms-overflow-style: none; /* Hide scrollbar */
         }
-
-        .profile-container::-webkit-scrollbar {
-            width: 0; /* Hide scrollbar width */
-            background: transparent; /* Optional: Set a transparent background */
-        }
-
         .profile-img {
             border-radius: 50%;
             width: 120px;
             height: 120px;
             object-fit: cover;
             border: 3px solid #28a745;
-            transition: all 0.3s ease;
-        }
-        .profile-img:hover {
-            border-color: #4D2E8D;
-        }
-        .profile-info {
-            margin-top: 20px;
+            margin-bottom: 20px;
         }
         .profile-info h2 {
-            margin: 10px 0;
             font-size: 24px;
-            color: #333;
+            margin-bottom: 10px;
+            color: #4D2E8D;
         }
         .profile-info p {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 20px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #555;
         }
         .button-container {
             display: flex;
-            gap: 10px;
             justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
         }
-        .edit-btn, .save-btn, .home-btn, .dashboard-btn {
-            margin-top: 15px;
-            padding: 12px 20px;
+        .button-container a {
+            padding: 10px 20px;
             font-size: 16px;
             font-weight: bold;
             color: white;
             background-color: #4D2E8D;
             border: none;
-            border-radius: 30px;
+            border-radius: 5px;
+            text-decoration: none;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
-        .edit-btn:hover, .save-btn:hover, .home-btn:hover, .dashboard-btn:hover {
-            background-color: #218838;
+        .button-container a:hover {
+            background-color: #6A4F9A;
         }
-
-        .edit-form {
-            display: none;
+        .edit-profile {
             margin-top: 20px;
             text-align: left;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: rgb(240 240 240 / 70%);
+            display: none;
+            animation: fadeIn 0.3s ease;
         }
-        .edit-form label {
-            font-size: 14px;
+        .edit-profile label {
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
-            color: #555;
         }
-        .edit-form input[type="text"], .edit-form input[type="file"], .edit-form input[type="password"] {
-            padding: 10px;
+        .edit-profile input {
             width: 100%;
-            margin-top: 10px;
+            padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            transition: border 0.3s ease;
+            border-radius: 5px;
         }
-        .edit-form input[type="text"]:focus, .edit-form input[type="file"]:focus, .edit-form input[type="password"]:focus {
-            border-color: #007bff;
-            outline: none;
+        .save-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        @media (max-width: 400px) {
-            .profile-container {
-                width: 90%;
-            }
-            .edit-btn, .save-btn, .home-btn, .dashboard-btn {
-                padding: 10px;
-                font-size: 14px;
-            }
+        .save-btn:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
-
     <div class="profile-container">
-        <img src="https://via.placeholder.com/120" alt="Profile Image" class="profile-img" id="profileImg">
+        <img src="{% static 'images/user.png' %}" alt="Profile Picture" class="profile-img" id="profileImg">
         <div class="profile-info">
-            <h2 id="userName">John Doe</h2>
-            <p>Fitness Enthusiast | Trainer</p>
-            <div class="button-container">
-                <a class="home-btn" href="{% url 'home2' %}">Home</a>  
-                <button class="edit-btn" id="editBtn">Edit Profile</button>
-                <!-- Dashboard Button -->
-                <button class="dashboard-btn" onclick="location.href='/accounts/dashboard'">Go to Dashboard</button>
-            </div>
+            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+            <p>Username: {{ user.username }}</p>
+            <p>Email: {{ user.email }}</p>
         </div>
-        
-        <div class="edit-form" id="editForm">
+        <div class="button-container">
+            <a href="{% url 'home2' %}">Home</a>
+            <a href="{% url 'login' %}">Logout</a>
+            <button id="editBtn" class="save-btn">Edit Profile</button>
+        </div>
+
+        <!-- Edit Form for Name and Profile Image -->
+        <div class="edit-profile" id="editForm" style="display:none;">
+            <h3>Change Profile Info</h3>
             <label for="nameInput">Change Name</label>
-            <input type="text" id="nameInput" placeholder="Enter new name" value="John Doe">
+            <input type="text" id="nameInput" placeholder="Enter new name" value="{{ user.first_name }} {{ user.last_name }}">
             
             <label for="imageInput">Change Profile Image</label>
             <input type="file" id="imageInput">
@@ -152,7 +129,8 @@
             <button class="save-btn" id="saveBtn">Save Changes</button>
         </div>
 
-        <div class="edit-form" id="passwordForm">
+        <!-- Edit Form for Password Change -->
+        <div class="edit-profile" id="passwordForm" style="display:none;">
             <h3>Change Password</h3>
             <label for="currentPassword">Current Password</label>
             <input type="password" id="currentPassword" placeholder="Enter current password">
@@ -178,60 +156,47 @@
         const profileImg = document.getElementById('profileImg');
         const imageInput = document.getElementById('imageInput');
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedName = localStorage.getItem('userName');
-            const savedImage = localStorage.getItem('profileImg');
-
-            if (savedName) {
-                userName.textContent = savedName;
-                nameInput.value = savedName;
-            }
-
-            if (savedImage) {
-                profileImg.src = savedImage;
-            }
-        });
-
+        // Edit button click handler
         editBtn.addEventListener('click', () => {
             editForm.style.display = 'block';
             passwordForm.style.display = 'block'; // Show password form when editing
         });
 
+        // Save changes in name and profile image
         saveBtn.addEventListener('click', () => {
             const newName = nameInput.value;
             if (newName) {
-                userName.textContent = newName;
-                localStorage.setItem('userName', newName);
+                userName.textContent = newName; // Update the displayed name
             }
 
             const file = imageInput.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    profileImg.src = e.target.result;
-                    localStorage.setItem('profileImg', e.target.result);
+                    profileImg.src = e.target.result; // Update the profile image preview
                 }
                 reader.readAsDataURL(file);
             }
 
+            // Hide the form after saving
             editForm.style.display = 'none';
         });
 
+        // Save changes in password
         savePasswordBtn.addEventListener('click', () => {
             const currentPassword = document.getElementById('currentPassword').value;
             const newPassword = document.getElementById('newPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // You can add your password validation logic here
             if (newPassword === confirmPassword) {
                 alert('Password changed successfully!'); // Feedback to the user
             } else {
                 alert('Passwords do not match.'); // Handle password mismatch
             }
 
-            passwordForm.style.display = 'none'; // Hide password form after saving
+            // Hide the password form after saving
+            passwordForm.style.display = 'none';
         });
     </script>
-
 </body>
 </html>
