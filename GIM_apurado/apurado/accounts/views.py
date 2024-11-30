@@ -11,6 +11,7 @@ from .forms import BookTrainerForm
 
 def home2(request):
     return render(request, 'accounts/home2.html')
+
 # Register view
 def register(request):
     if request.method == 'POST':
@@ -252,7 +253,7 @@ def book_trainer(request):
     else:
         form = BookTrainerForm()
     
-    return render(request, 'trainer_schedule.html', {'form': form})
+    return render(request, 'accounts/book_trainer.html', {'form': form})
 
 def trainer_schedule(request):
     classes = Class.objects.all()
@@ -272,7 +273,7 @@ def trainer_schedule(request):
     else:
         form = BookTrainerForm()
     
-    return render(request, 'trainer_schedule.html', {'form': form, 'classes': classes})
+    return render(request, 'accounts/trainer_schedule.html', {'form': form, 'classes': classes})
 
 def trainer_schedule_view(request):
     return render(request, 'accounts/trainer_schedule.html')
