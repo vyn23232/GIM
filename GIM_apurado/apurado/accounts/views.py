@@ -6,6 +6,8 @@ from django.core.mail import send_mail
 from .models import User, Dashboard, Booking, Payment
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from .forms import BookTrainerForm
+from .models import Booking, User, Class
 
 def home2(request):
     return render(request, 'accounts/home2.html')
@@ -226,3 +228,42 @@ def benefits(request):
             return render(request, 'accounts/send_reset_link.html')
 
     return render(request, 'accounts/send_reset_link.html')
+
+def book_trainer(request):
+    if request.method == 'POST':
+        form = BookTrainerForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            class_instance = form.cleaned_data['class_id']
+            booking = Booking(
+                user=user,
+                class_id=class_instance,
+            )
+            booking.save()
+            messages.success(request, 'Trainer booked successfully!')
+            return redirect('book_trainer')  # Redirect back to the booking page
+    else:
+        form = BookTrainerForm()
+
+    return render(request, 'accounts/book_trainer.html', {'form': form})
+
+def trainer_schedule(request):
+    classes = Class.objects.all()
+    if request.method == 'POST':
+        form = BookTrainerForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            class_instance = form.cleaned_data['class_id']
+            booking = Booking(
+                user=user,
+                class_id=class_instance,
+                status=form.cleaned_data['status']
+            )
+            booking.save()
+            messages.success(request, 'Booking successful!')
+            return redirect('trainer_schedule')  # Redirect back to the schedule page
+    else:
+        form = BookTrainerForm()
+    
+    return render(request, 'accounts/trainer_schedule.html', {'form': form, 'classes': classes})
+

@@ -3,10 +3,11 @@ from .views import (
     register, profile, membership_management, add_user,
     payment_options, credit_card, paypal, bank_transfer,
     login_view, home_view, about_view,
-    process_credit_card_payment, payment_confirmation, payment_error, dashboard_view, benefits
+    process_credit_card_payment, payment_confirmation, payment_error, dashboard_view, benefits, book_trainer, trainer_schedule
 )
 from .views import payment_confirmation 
 from .views import home2  # Import the home2 view
+from django.views.generic import TemplateView
 
 urlpatterns = [
     # Home view
@@ -41,4 +42,8 @@ urlpatterns = [
 
     # Dashboard view
     path('dashboard/', dashboard_view, name='dashboard_view'),
+
+    # Booking trainer view
+    path('book_trainer/', book_trainer, name='book_trainer'),
+    path('trainer_schedule/', trainer_schedule, name='trainer_schedule'),
 ]
