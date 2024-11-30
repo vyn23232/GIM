@@ -3,11 +3,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from .models import User, Dashboard, Booking, Payment
+from .models import User, Dashboard, Booking, Payment, Class
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from .forms import BookTrainerForm
-from .models import Booking, User, Class
+
 
 def home2(request):
     return render(request, 'accounts/home2.html')
@@ -86,6 +86,7 @@ def profile(request):
 
     user = get_object_or_404(User, user_id=user_id)
     return render(request, 'accounts/profile.html', {'user': user})
+
 def profile_view(request):
     # The authenticated user is already available via `request.user`
     return render(request, 'accounts/profile.html', {'user': request.user})
@@ -193,6 +194,9 @@ def home_view(request):
 def about_view(request):
     return render(request, 'accounts/about.html')
 
+def about2_view(request):
+    return render(request, 'accounts/about2.html')
+
 # Gym Benefits
 def benefits(request):
     return render(request, 'accounts/gym_benefits.html')
@@ -240,14 +244,15 @@ def book_trainer(request):
             booking = Booking(
                 user=user,
                 class_id=class_instance,
+                status=form.cleaned_data['status']
             )
             booking.save()
-            messages.success(request, 'Trainer booked successfully!')
-            return redirect('book_trainer')  # Redirect back to the booking page
+            messages.success(request, 'Booking successful!')
+            return redirect('trainer_schedule')  # Redirect back to the schedule page
     else:
         form = BookTrainerForm()
-
-    return render(request, 'accounts/book_trainer.html', {'form': form})
+    
+    return render(request, 'trainer_schedule.html', {'form': form})
 
 def trainer_schedule(request):
     classes = Class.objects.all()
@@ -267,5 +272,7 @@ def trainer_schedule(request):
     else:
         form = BookTrainerForm()
     
-    return render(request, 'accounts/trainer_schedule.html', {'form': form, 'classes': classes})
+    return render(request, 'trainer_schedule.html', {'form': form, 'classes': classes})
 
+def trainer_schedule_view(request):
+    return render(request, 'accounts/trainer_schedule.html')
