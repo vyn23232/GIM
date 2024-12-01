@@ -170,12 +170,12 @@
         <div class="payment-method-section">
             <h3>Select Payment Method</h3>
             <label class="payment-method">
-                <input type="radio" name="paymentMethod" value="creditCard" required>
+                <input type="radio" name="paymentMethod" value="Credit Card" required>
                 <img src="{% static 'images/visa.png' %}" alt="Visa Logo">
                 <span>Credit Card</span>
             </label>
             <label class="payment-method">
-                <input type="radio" name="paymentMethod" value="paypal">
+                <input type="radio" name="paymentMethod" value="Paypal">
                 <img src="{% static 'images/paypal.png' %}" alt="PayPal Logo">
                 <span>PayPal</span>
             </label>
@@ -220,6 +220,7 @@
         function redirectToSelectedPayment() {
             const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
             const paymentDate = document.getElementById('paymentDate').value;
+            const membershipPlan = new URLSearchParams(window.location.search).get('plan');
 
             if (!selectedMethod) {
                 alert("Please select a payment method.");
@@ -231,20 +232,9 @@
                 return;
             }
 
-            let page = '';
-            switch (selectedMethod.value) {
-                case 'creditCard':
-                    page = '{% url "credit_card" %}';
-                    break;
-                case 'paypal':
-                    page = '{% url "paypal" %}';
-                    break;
-                case 'bankTransfer':
-                    page = '{% url "bank_transfer" %}';
-                    break;
-            }
-
-            window.location.href = `${page}?date=${encodeURIComponent(paymentDate)}`;
+            // Redirect to the payment success view with the relevant data
+            const redirectUrl = `{% url 'payment_success' %}?paymentMethod=${selectedMethod.value}&paymentDate=${paymentDate}&plan=${membershipPlan}`;
+            window.location.href = redirectUrl;            
         }
     </script>
 </body>

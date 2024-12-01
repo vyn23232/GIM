@@ -96,7 +96,7 @@
             <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" required>
             
             <label for="cardholder_name"><i class="fas fa-user"></i>Cardholder Name</label>
-            <input type="text" id="cardholder_name" name="cardholder_name" placeholder="John Doe" required>
+            <input type="text" id="cardholder_name" name="cardholder_name" value="{{ user.first_name }}" placeholder="John Doe" required>
             
             <label for="expiry_date"><i class="fas fa-calendar-alt"></i>Expiry Date</label>
             <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required>

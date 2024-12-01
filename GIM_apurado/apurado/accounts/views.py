@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
 from .models import User, Dashboard, Booking, Payment, Class
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -48,7 +47,7 @@ def register(request):
         login(request, user)
 
         messages.success(request, "Registration successful!")
-        return redirect('dashboard_view')
+        return redirect('dashboard')
 
     return render(request, 'accounts/register.html')
 
@@ -129,8 +128,6 @@ def dashboard_view(request):
         return redirect('login')
 
 
-
-
 # Membership management view
 def membership_management(request):
     users = User.objects.all()
@@ -160,10 +157,6 @@ def credit_card(request):
 
 def paypal(request):
     return render(request, 'accounts/paypal.html')
-
-
-def bank_transfer(request):
-    return render(request, 'accounts/bank_transfer.html')
 
 
 def process_credit_card_payment(request):
@@ -201,40 +194,6 @@ def about2_view(request):
 # Gym Benefits
 def benefits(request):
     return render(request, 'accounts/gym_benefits.html')
-
-# Forgot password view
-#def forgot_password(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        # Logic to send the password reset link would go here
-        return redirect('send_reset_link')
-    return render(request, 'accounts/forgot_password.html')
-
-
-# Send reset link view
-#def send_reset_link(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-
-        try:
-            user = User.objects.get(email=email)
-            # Logic to generate a reset link
-            reset_link = f'http://yourdomain.com/reset-password/{user.id}/'
-
-            send_mail(
-                'Password Reset Request',
-                f'Click the link below to reset your password:\n\n{reset_link}',
-                'admin@example.com',
-                [email],
-                fail_silently=False,
-            )
-            messages.success(request, 'A reset link has been sent to your email.')
-            return render(request, 'accounts/email_sent.html')
-        except User.DoesNotExist:
-            messages.error(request, 'No account found with this email.')
-            return render(request, 'accounts/send_reset_link.html')
-
-    return render(request, 'accounts/send_reset_link.html')
 
 def book_trainer(request):
     if request.method == 'POST':
@@ -277,3 +236,53 @@ def trainer_schedule(request):
 
 def trainer_schedule_view(request):
     return render(request, 'accounts/trainer_schedule.html')
+
+def payment_success(request):
+    user = request.user
+    payment_method = request.GET.get('paymentMethod')
+    payment_date = request.GET.get('paymentDate')
+    membership_type = request.GET.get('plan')
+    amount_due = calculate_amount_due(membership_type)
+
+    # Save payment data, for example in the session or database
+    request.session['payment_info'] = {
+        'name': user.first_name,
+        'membership_type': membership_type,
+        'amount_due': amount_due,
+        'payment_method': payment_method,
+        'payment_date': payment_date,
+    }
+
+    # Redirect to dashboard
+    return redirect('dashboard')
+
+def calculate_amount_due(membership_type):
+    if membership_type == 'Basic':
+        return 29.00
+    elif membership_type == 'Premium':
+        return 49.00
+    elif membership_type == 'VIP':
+        return 79.00
+    return 0.00
+
+# Dashboard view to display payment data
+def dashboard(request):
+    payment_info = request.session.get('payment_info', None)
+    if not payment_info:
+        return HttpResponse("No payment information available.")
+    
+    return render(request, 'accounts/dashboard.html', {'payment_info': payment_info})
+
+def payment_success(request):
+    # Get the query parameters from the URL
+    payment_method = request.GET.get('paymentMethod')
+    payment_date = request.GET.get('paymentDate')
+    plan = request.GET.get('plan')
+
+    # Render the success page, passing the variables to the template
+    return render(request, 'accounts/payment_success.html', {
+        'user': request.user,
+        'payment_method': payment_method,
+        'payment_date': payment_date,
+        'plan': plan,
+    })
