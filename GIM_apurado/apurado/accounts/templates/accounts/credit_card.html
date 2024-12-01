@@ -90,13 +90,12 @@
     <div class="payment-container">
         <h2>Enter Credit Card Details</h2>
         <img src="{% static 'images/visa.png' %}" alt="Visa Logo" class="visa-logo">
-        <form action="{% url 'payment_confirmation' %}" method="POST">
-            {% csrf_token %}
+        <form id="paymentForm">
             <label for="card_number"><i class="fas fa-credit-card"></i>Card Number</label>
             <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" required>
             
             <label for="cardholder_name"><i class="fas fa-user"></i>Cardholder Name</label>
-            <input type="text" id="cardholder_name" name="cardholder_name" value="{{ user.first_name }}" placeholder="John Doe" required>
+            <input type="text" id="cardholder_name" name="cardholder_name" value="{{ user.first_name }} {{ user.last_name }}" placeholder="John Doe" required>
             
             <label for="expiry_date"><i class="fas fa-calendar-alt"></i>Expiry Date</label>
             <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required>
@@ -104,14 +103,33 @@
             <label for="cvv"><i class="fas fa-lock"></i>CVV</label>
             <input type="text" id="cvv" name="cvv" placeholder="123" required>
             
-            <button type="submit">Proceed to Pay</button>
+            <button type="button" onclick="redirectToSuccessPage()">Proceed to Pay</button>
             <button onclick="goBack()" style="margin-top: 15px; width: 40%; padding: 7px; font-size: 16px; font-weight: 600; color: #fff; background-color: #ccc; border: none; border-radius: 8px; cursor: pointer;">Back</button>
         </form>
         <div class="footer">&copy; 2024 GIM Membership System. All rights reserved.</div>
     </div>
+
     <script>
-        function goBack() {
-            window.location.href = '{% url "payment_options" %}';
+        function redirectToSuccessPage() {
+            const cardNumber = document.getElementById('card_number').value;
+            const cardholderName = document.getElementById('cardholder_name').value;
+            const expiryDate = document.getElementById('expiry_date').value;
+            const cvv = document.getElementById('cvv').value;
+        
+            const paymentMethod = new URLSearchParams(window.location.search).get('paymentMethod');
+            const paymentDate = new URLSearchParams(window.location.search).get('paymentDate');
+            const plan = new URLSearchParams(window.location.search).get('plan');
+        
+            // Construct the URL with the dummy data and the additional data
+            const successUrl = "{% url 'payment_success' %}?card_number=" + cardNumber + 
+                                "&cardholder_name=" + cardholderName + 
+                                "&expiry_date=" + expiryDate + 
+                                "&cvv=" + cvv + 
+                                "&paymentMethod=" + paymentMethod + 
+                                "&paymentDate=" + paymentDate + 
+                                "&plan=" + plan;
+        
+            window.location.href = successUrl;
         }
     </script>
 </body>

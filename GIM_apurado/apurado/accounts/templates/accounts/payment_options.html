@@ -211,7 +211,7 @@
             // Update Payment Details Section
             document.querySelector(".details-section").innerHTML = `
                 <h3>Payment Details</h3>
-                <p><strong>Name:</strong> {{ user.first_name }}</p>
+                <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
                 <p><strong>Membership Type:</strong> ${plan}</p>
                 <p><strong>Amount Due:</strong> ${amount}</p>
             `;
@@ -221,19 +221,19 @@
             const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
             const paymentDate = document.getElementById('paymentDate').value;
             const membershipPlan = new URLSearchParams(window.location.search).get('plan');
-
+        
             if (!selectedMethod) {
                 alert("Please select a payment method.");
                 return;
             }
-
+        
             if (!paymentDate) {
                 alert("Please select a payment date.");
                 return;
             }
-
-            // Redirect to the payment success view with the relevant data
-            const redirectUrl = `{% url 'payment_success' %}?paymentMethod=${selectedMethod.value}&paymentDate=${paymentDate}&plan=${membershipPlan}`;
+        
+            // Redirect to the credit card page with the relevant data
+            const redirectUrl = `{% url 'credit_card' %}?paymentMethod=${selectedMethod.value}&paymentDate=${paymentDate}&plan=${membershipPlan}`;
             window.location.href = redirectUrl;            
         }
     </script>
