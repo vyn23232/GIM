@@ -255,10 +255,56 @@
 
         <section class="membership-plans">
             <h2>Membership Plans</h2>
-            <a href="{% url 'payment_options' %}?plan=Basic" class="membership-card">Basic Plan - $29/month</a>
-            <a href="{% url 'payment_options' %}?plan=Premium" class="membership-card">Premium Plan - $49/month</a>
-            <a href="{% url 'payment_options' %}?plan=VIP" class="membership-card">VIP Plan - $79/month</a>
-        </section>
+            <div class="plans-container" style="display: flex; justify-content: center; gap: 30px;">
+                <!-- Silver Membership -->
+                <div class="membership-card" style="flex: 1; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                    <h3>Silver Membership</h3>
+                    <h2 style="font-size: 36px;">$30</h2>
+                    <p>Every month</p>
+                    <p>Perfect for beginners and those returning to training</p>
+                    <p>Valid for 12 months</p>
+                    <a href="{% url 'payment_options' %}?plan=Basic" style="padding: 10px 20px; background-color: #6b8e23; color: white; border: none; border-radius: 5px; display: inline-block; margin-top: 20px; text-decoration: none;">Subscribe now</a>
+                    <ul style="list-style: none; padding: 20px 0 0;">
+                        <li>Access to all classes Mon - Fri</li>
+                        <li>Free t-shirt</li>
+                        <li>1-on-1 consultation</li>
+                    </ul>
+                </div>
+        
+                <!-- Gold Membership -->
+                <div class="membership-card" style="flex: 1; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                    <h3 style="background-color: #6b8e23; color: white; padding: 5px; border-radius: 5px; display: inline-block;">Top Seller</h3>
+                    <h3>Gold Membership</h3>
+                    <h2 style="font-size: 36px;">$45</h2>
+                    <p>Every month</p>
+                    <p>Ideal for advanced trainers</p>
+                    <p>Valid for 12 months</p>
+                    <a href="{% url 'payment_options' %}?plan=Premium" style="padding: 10px 20px; background-color: #6b8e23; color: white; border: none; border-radius: 5px; display: inline-block; margin-top: 20px; text-decoration: none;">Subscribe now</a>
+                    <ul style="list-style: none; padding: 20px 0 0;">
+                        <li>Personalized program</li>
+                        <li>Four online form coaching sessions</li>
+                        <li>Access to massage therapist</li>
+                        <li>Full nutrition plan</li>
+                    </ul>
+                </div>
+        
+                <!-- Platinum Membership -->
+                <div class="membership-card" style="flex: 1; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                    <h3>Platinum Membership</h3>
+                    <h2 style="font-size: 36px;">$55</h2>
+                    <p>Every month</p>
+                    <p>Perfect for committed trainers</p>
+                    <p>Valid for 12 months</p>
+                    <a href="{% url 'payment_options' %}?plan=VIP" style="padding: 10px 20px; background-color: #6b8e23; color: white; border: none; border-radius: 5px; display: inline-block; margin-top: 20px; text-decoration: none;">Subscribe now</a>
+                    <ul style="list-style: none; padding: 20px 0 0;">
+                        <li>24/7 Gym Access</li>
+                        <li>Custom strength & conditioning program</li>
+                        <li>Weekly mobility training sessions</li>
+                        <li>Four physio sessions per month</li>
+                    </ul>
+                </div>
+            </div>
+        </section>        
     </main>
 
     <footer class="footer">
