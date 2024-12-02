@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import BookTrainerForm
 from django.utils.timezone import now
+from django.contrib.auth import update_session_auth_hash
+
 @login_required
 def home2(request):
     return render(request, 'accounts/home2.html')
@@ -305,3 +307,23 @@ def payment_success(request):
             'payment_date': payment_date,
         })
     return redirect('payment_options')  # Redirect if accessed incorrectly
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        current_password = request.POST.get('currentPassword')
+        new_password = request.POST.get('newPassword')
+        confirm_password = request.POST.get('confirmPassword')
+
+        if new_password == confirm_password:
+            if request.user.check_password(current_password):
+                request.user.set_password(new_password)
+                request.user.save()
+                update_session_auth_hash(request, request.user)  # Important to keep the user logged in
+                messages.success(request, 'Your password was successfully updated!')
+            else:
+                messages.error(request, 'Current password is incorrect.')
+        else:
+            messages.error(request, 'New passwords do not match.')
+
+    return redirect('profile')

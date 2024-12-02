@@ -132,19 +132,20 @@
         </div>
 
         <!-- Edit Form for Password Change -->
-        <div class="edit-profile" id="passwordForm" style="display:none;">
+        <form method="post" action="{% url 'change_password' %}" class="edit-profile" id="passwordForm" style="display:none;">
+            {% csrf_token %}
             <h3>Change Password</h3>
             <label for="currentPassword">Current Password</label>
-            <input type="password" id="currentPassword" placeholder="Enter current password">
+            <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter current password">
             
             <label for="newPassword">New Password</label>
-            <input type="password" id="newPassword" placeholder="Enter new password">
+            <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password">
             
             <label for="confirmPassword">Confirm New Password</label>
-            <input type="password" id="confirmPassword" placeholder="Confirm new password">
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password">
             
-            <button class="save-btn" id="savePasswordBtn">Save Changes</button>
-        </div>
+            <button type="submit" class="save-btn" id="savePasswordBtn">Save Changes</button>
+        </form>
     </div>
 
     <script>
@@ -182,22 +183,6 @@
 
             // Hide the form after saving
             editForm.style.display = 'none';
-        });
-
-        // Save changes in password
-        savePasswordBtn.addEventListener('click', () => {
-            const currentPassword = document.getElementById('currentPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (newPassword === confirmPassword) {
-                alert('Password changed successfully!'); // Feedback to the user
-            } else {
-                alert('Passwords do not match.'); // Handle password mismatch
-            }
-
-            // Hide the password form after saving
-            passwordForm.style.display = 'none';
         });
     </script>
 </body>

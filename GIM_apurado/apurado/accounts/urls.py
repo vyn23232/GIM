@@ -4,7 +4,7 @@ from .views import (
     payment_options, credit_card,
     login_view, home_view, about_view, about2_view,
     process_credit_card_payment, payment_confirmation, payment_error, benefits, home2,
-    book_trainer, trainer_schedule, payment_success, dashboard, logout_view
+    book_trainer, trainer_schedule, payment_success, dashboard, logout_view, change_password
 )
 
 urlpatterns = [
@@ -41,4 +41,7 @@ urlpatterns = [
     
     # Logout view
     path('logout', logout_view, name='logout'),
+
+    # Change password view
+    path('change_password/', change_password, name='change_password'),
 ]
