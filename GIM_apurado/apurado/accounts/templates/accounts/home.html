@@ -199,9 +199,9 @@
         <img class="logo" src="{% static 'images/logo2.png' %}" alt="Gym Logo">
         <nav class="nav">
             <a href="{% url 'about' %}" class="nav-item">About</a>
-            <a href="#" class="nav-item">Gym Benefits</a>
-            <a href="#" class="nav-item">Membership</a>
-            <a href="{% url 'login' %}" class="nav-item">Book A Trainer</a>
+            <a href="{% url 'benefits' %}" class="nav-item">Gym Benefits</a>
+            <a href="#" class="nav-item" onclick="scrollToMembership()">Membership</a>
+        <a href="{% url 'login' %}" class="nav-item" onclick="alert('Interested? Login or Register now!')">Book A Trainer</a>
         </nav>
         <a href="{% url 'profile' %}" class="account">
             
@@ -243,7 +243,7 @@
                     <p>Every month</p>
                     <p>Perfect for beginners and those returning to training</p>
                     <p>Valid for 12 months</p>
-                    <a href="{% url 'login' %}?plan=Basic" style="padding: 10px 20px; background-color: #6b8e23; color: white; border: none; border-radius: 5px; display: inline-block; margin-top: 20px; text-decoration: none;">Subscribe now</a>
+                    <a href="{% url 'login' %}?plan=Basic" style="padding: 10px 20px; background-color: #6b8e23; color: white; border: none; border-radius: 5px; display: inline-block; margin-top: 20px; text-decoration: none;"onclick="alert('Interested? Login or Register now!')">Subscribe now</a>
                     <ul style="list-style: none; padding: 20px 0 0;">
                         <li>Access to all classes Mon - Fri</li>
                         <li>Free t-shirt</li>
@@ -259,7 +259,7 @@
                     <p>Every month</p>
                     <p>Ideal for advanced trainers</p>
                     <p>Valid for 12 months</p>
-                    <a href="{% url 'login' %}?plan=Premium" style="padding: 10px 20px; background-color: #6b8e23; color: white; border: none; border-radius: 5px; display: inline-block; margin-top: 20px; text-decoration: none;">Subscribe now</a>
+                    <a href="{% url 'login' %}?plan=Premium" style="padding: 10px 20px; background-color: #6b8e23; color: white; border: none; border-radius: 5px; display: inline-block; margin-top: 20px; text-decoration: none;"onclick="alert('Interested? Login or Register now!')">Subscribe now</a>
                     <ul style="list-style: none; padding: 20px 0 0;">
                         <li>Personalized program</li>
                         <li>Four online form coaching sessions</li>
@@ -275,7 +275,7 @@
                     <p>Every month</p>
                     <p>Perfect for committed trainers</p>
                     <p>Valid for 12 months</p>
-                    <a href="{% url 'login' %}?plan=VIP" style="padding: 10px 20px; background-color: #6b8e23; color: white; border: none; border-radius: 5px; display: inline-block; margin-top: 20px; text-decoration: none;">Subscribe now</a>
+                    <a href="{% url 'login' %}?plan=VIP" style="padding: 10px 20px; background-color: #6b8e23; color: white; border: none; border-radius: 5px; display: inline-block; margin-top: 20px; text-decoration: none;"onclick="alert('Interested? Login or Register now!')">Subscribe now</a>
                     <ul style="list-style: none; padding: 20px 0 0;">
                         <li>24/7 Gym Access</li>
                         <li>Custom strength & conditioning program</li>
@@ -285,6 +285,11 @@
                 </div>
             </div>
         </section> 
+        <script>
+            function scrollToMembership() {
+                document.querySelector('.membership-plans').scrollIntoView({ behavior: 'smooth' });
+            }
+            </script>
     </main>
 
     <footer class="footer">

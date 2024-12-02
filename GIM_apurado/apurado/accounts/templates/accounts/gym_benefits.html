@@ -286,7 +286,12 @@
             </div>
         </div>
 
+    {% if user.is_authenticated %}
         <a href="{% url 'home2' %}" class="back-button">Back to Home</a>
+    {% else %}
+        <a href="{% url 'home' %}" class="back-button">Back to Home</a>
+    {% endif %}
+    
     </div>
 </body>
 </html>

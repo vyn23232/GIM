@@ -4,7 +4,7 @@ from .views import (
     payment_options, credit_card, paypal,
     login_view, home_view, about_view, about2_view,
     process_credit_card_payment, payment_confirmation, payment_error, benefits, home2,
-    book_trainer, trainer_schedule, payment_success, dashboard_view
+    book_trainer, trainer_schedule, payment_success, dashboard_view, logout_view
 )
 
 urlpatterns = [
@@ -39,5 +39,7 @@ urlpatterns = [
     path('trainer_schedule/', trainer_schedule, name='trainer_schedule'),
     path('payment_success/', payment_success, name='payment_success'),
     path('dashboard/', dashboard_view, name='dashboard'),  # Use 'dashboard' instead
-
+    
+    # Logout view
+    path('logout', logout_view, name='logout'),
 ]

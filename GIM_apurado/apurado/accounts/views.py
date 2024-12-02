@@ -3,11 +3,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import User, Dashboard, Booking, Payment, Class
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import BookTrainerForm
 
-
+@login_required
 def home2(request):
     return render(request, 'accounts/home2.html')
 
@@ -76,6 +76,12 @@ def login_view(request):
     else:
         # Render the login page
         return render(request, 'accounts/login.html')
+    
+# Logout view
+def logout_view(request):
+    # Log the user out
+    logout(request)
+    return redirect('login')  # Redirect to the login page    
 
 # Profile view
 @login_required
@@ -125,6 +131,7 @@ def dashboard_view(request):
     except User.DoesNotExist:
         # Handle case where User with the given ID is not found
         messages.error(request, "User not found. Please log in again.")
+        logout(request)  # Log the user out
         return redirect('login')
 
 
@@ -195,6 +202,7 @@ def about2_view(request):
 def benefits(request):
     return render(request, 'accounts/gym_benefits.html')
 
+@login_required
 def book_trainer(request):
     if request.method == 'POST':
         form = BookTrainerForm(request.POST)
@@ -214,6 +222,7 @@ def book_trainer(request):
     
     return render(request, 'accounts/book_trainer.html', {'form': form})
 
+@login_required
 def trainer_schedule(request):
     classes = Class.objects.all()
     if request.method == 'POST':

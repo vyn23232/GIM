@@ -193,7 +193,6 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, background-color 0.3s;
             text-decoration: none;
-            color: #f4f4f4
             font-size: 18px;
             text-align: left;
         }
@@ -217,7 +216,7 @@
         <nav class="nav">
             <a href="{% url 'about2' %}" class="nav-item">About</a>
             <a href="{% url 'benefits' %}" class="nav-item">Gym Benefits</a>
-            <a href="#" class="nav-item">Membership</a>
+            <a href="#" class="nav-item" onclick="scrollToMembership()">Membership</a>
             <a href="{% url 'book_trainer' %}" class="nav-item">Book A Trainer</a>
         </nav>
         <a href="{% url 'profile' %}" class="account">
@@ -304,7 +303,12 @@
                     </ul>
                 </div>
             </div>
-        </section>        
+        </section>
+        <script>
+            function scrollToMembership() {
+                document.querySelector('.membership-plans').scrollIntoView({ behavior: 'smooth' });
+            }
+            </script>
     </main>
 
     <footer class="footer">
