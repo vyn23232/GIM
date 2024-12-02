@@ -49,7 +49,7 @@ def register(request):
         login(request, user)
 
         messages.success(request, "Registration successful!")
-        return redirect('dashboard')
+        return redirect('login')
 
     return render(request, 'accounts/register.html')
 
