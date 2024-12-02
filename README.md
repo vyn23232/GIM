@@ -42,22 +42,19 @@ The **Membership Management System (GIM)** is a Django-based web application des
     pip install -r requirements.txt
     ```
 
-3. Set up the database (PostgreSQL or your chosen database):
-    - Configure database settings in `settings.py`.
-
-4. Run database migrations:
+3. Run database migrations:
     ```bash
     python manage.py migrate
     ```
 
-5. Create a superuser for admin access:
+4. Create a superuser for admin access:
     ```bash
     python manage.py createsuperuser
     ```
 
-6. Run the application:
+5. Run the application:
     ```bash
     python manage.py runserver
     ```
 
-7. Access the system by visiting `http://127.0.0.1:8000` in your browser.
+6. Access the system by visiting `http://127.0.0.1:8000` in your browser.
