@@ -5,42 +5,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Add your custom styles here */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #eef2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
         .dashboard-container {
-            padding: 30px;
-            background-color: #f4f4f4;
+            padding: 40px;
+            background-color: #ffffff;
             border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 90%;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .header h2 {
             font-size: 28px;
             font-weight: 800;
             color: #4D2E8D;
         }
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
         .user-info p {
             font-size: 16px;
-            margin: 5px 0;
+            margin: 0;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .user-info p strong {
+            color: #4D2E8D;
+            margin-right: 5px;
+        }
+        .icon {
+            font-size: 18px;
+            color: #4D2E8D;
+        }
+        .user-info p span {
+            flex: 1;
+        }
+        .go-back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #4D2E8D;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .go-back-btn i {
+            margin-right: 8px;
+        }
+        .go-back-btn:hover {
+            background-color: #3b2170;
         }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         <div class="header">
-            <h2>Welcome, {{ payment_info.name }}</h2>
+            <h2><i class="fas fa-user-circle"></i> Welcome, {{ user.first_name }} {{ user.last_name }}</h2>
             <p>Your payment details are as follows:</p>
         </div>
         <div class="user-info">
-            <p><strong>Name:</strong> {{ payment_info.name }}</p>
-            <p><strong>Membership Type:</strong> {{ payment_info.membership_type }}</p>
-            <p><strong>Amount Due:</strong> ${{ payment_info.amount_due }}</p>
-            <p><strong>Payment Method:</strong> {{ payment_info.payment_method }}</p>
-            <p><strong>Payment Date:</strong> {{ payment_info.payment_date }}</p>
+            <p><i class="fas fa-id-card icon"></i><span><strong>Membership Type:</strong> {{ plan }}</span></p>
+            <p><i class="fas fa-dollar-sign icon"></i><span><strong>Amount Paid:</strong> 
+                {% if plan == 'Basic' %}
+                    $29.00
+                {% elif plan == 'Premium' %}
+                    $49.00
+                {% elif plan == 'VIP' %}
+                    $79.00
+                {% else %}
+                    $0.00
+                {% endif %}
+            </span></p>
+            <p><i class="fas fa-credit-card icon"></i><span><strong>Payment Method:</strong> {{ payment_method }}</span></p>
+            <p><i class="fas fa-calendar-alt icon"></i><span><strong>Payment Date:</strong> {{ payment_date }}</span></p>
         </div>
+        <a href="{% url 'home2' %}" class="go-back-btn">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
     </div>
 </body>
 </html>

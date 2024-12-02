@@ -6,7 +6,7 @@ from .models import User, Dashboard, Booking, Payment, Class
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import BookTrainerForm
-
+from django.utils.timezone import now
 @login_required
 def home2(request):
     return render(request, 'accounts/home2.html')
@@ -278,23 +278,33 @@ def calculate_amount_due(membership_type):
     return 0.00
 
 # Dashboard view to display payment data
+@login_required
 def dashboard(request):
-    payment_info = request.session.get('payment_info', None)
-    if not payment_info:
-        return HttpResponse("No payment information available.")
-    
-    return render(request, 'accounts/dashboard.html', {'payment_info': payment_info})
+    payment_data = request.session.get('payment_data', {})
+    context = {
+        'user': request.user,
+        'plan': payment_data.get('plan', 'N/A'),
+        'payment_method': payment_data.get('payment_method', 'N/A'),
+        'payment_date': payment_data.get('payment_date', 'N/A'),
+    }
+    return render(request, 'accounts/dashboard.html', context)
 
 def payment_success(request):
-    # Get the query parameters from the URL
-    payment_method = request.GET.get('paymentMethod')
-    payment_date = request.GET.get('paymentDate')
-    plan = request.GET.get('plan')
+    if request.method == 'GET':
+        plan = request.GET.get('plan', '')
+        payment_method = request.GET.get('paymentMethod', '')
+        payment_date = request.GET.get('paymentDate', now().date())
 
-    # Render the success page, passing the variables to the template
-    return render(request, 'accounts/payment_success.html', {
-        'user': request.user,
-        'payment_method': payment_method,
-        'payment_date': payment_date,
-        'plan': plan,
-    })
+        # Save payment data to session for the dashboard
+        request.session['payment_data'] = {
+            'plan': plan,
+            'payment_method': payment_method,
+            'payment_date': payment_date,
+        }
+        return render(request, 'accounts/payment_success.html', {
+            'user': request.user,
+            'plan': plan,
+            'payment_method': payment_method,
+            'payment_date': payment_date,
+        })
+    return redirect('payment_options')  # Redirect if accessed incorrectly
