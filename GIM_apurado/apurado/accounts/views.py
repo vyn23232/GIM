@@ -72,7 +72,8 @@ def login_view(request):
         else:
             # Authentication failed
             messages.error(request, "Invalid username or password.")
-            return redirect('login')  # Redirect back to the login page
+            # Render the login page with the error message
+            return render(request, 'accounts/login.html')
     else:
         # Render the login page
         return render(request, 'accounts/login.html')

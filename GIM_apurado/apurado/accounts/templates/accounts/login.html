@@ -161,8 +161,17 @@
                 <button type="submit">LOG IN</button>
                 <div class="or-divider">OR</div>
                 <button type="button" onclick="location.href='/accounts/register'">SIGNUP</button>
-                {% if error %}
-                    <p class="error-message">{{ error }}</p>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    <script>
+                        setTimeout(function() {
+                            document.querySelector('.messages').style.display = 'none';
+                        }, 3000);
+                    </script>
                 {% endif %}
             </form>
         </div>
