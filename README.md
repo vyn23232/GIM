@@ -1,21 +1,60 @@
-# GIM
+# GIM - Membership Management System
 
-# Description
-The Membership Management System is a web application built with Django that allows administrators to manage users and their memberships. This system supports the registration of users, tracking of their membership details, and management of gym class subscriptions. Users can be assigned different membership types, and the system keeps track of their membership start and end dates. Additionally, administrators can update membership statuses (active or inactive), view user details, and manage gym class subscriptions.
+## Overview
 
-# Links
-- **Figma UI/UX**: [Figma Design](https://www.figma.com/design/vasctcpZrMjBhusc0ZcXgd/GMMYS-UI%2FUX?node-id=0-1&t=7iQ5nbq7QesXEvrQ-1)
+The **Membership Management System (GIM)** is a Django-based web application designed to streamline the management of users and their gym memberships. The system enables administrators to register users, track membership details, and manage gym class subscriptions efficiently. Users can be assigned various membership types, with automatic tracking of their membership periods. The application also allows for dynamic updates to user and membership statuses.
+
+## Key Features
+- **Admin User Management**: Admin can add, view, and manage user details, including their name, email, mobile number, and gym class subscriptions.
+- **Membership Management**: Keep track of membership information, including membership plan, payment details, payment amount, payment method, payment date.
+- **Dynamic Updates**: The ability to update user profiles and membership statuses in real-time, ensuring the system reflects the latest data.
+- **Responsive Design**: Optimized for desktop users ensuring a seamless user experience across dekstop platforms.
+
+## Links
+
+- **UI/UX Design (Figma)**: [Figma Design](https://www.figma.com/design/vasctcpZrMjBhusc0ZcXgd/GMMYS-UI%2FUX?node-id=0-1&t=7iQ5nbq7QesXEvrQ-1)
 - **Entity Relationship Diagram (ERD)**: [View ERD](https://drive.google.com/file/d/1dy-xeEKZtHsnG8stu4BsWxdPTAubW09s/view?usp=sharing)
 - **Gantt Chart**: [View Gantt Chart](https://drive.google.com/file/d/1dy-xeEKZtHsnG8stu4BsWxdPTAubW09s/view?usp=sharing)
 
-# Key Features
-- Admin User Management: Allows adding and viewing user details, including name, email, mobile number, and gym class subscription.
-- Membership Management: Tracks membership details such as membership type, start and end dates, and the active status.
-- User-Membership Relationship: Each user can have multiple memberships associated with different gym classes.
-- Dynamic User and Membership Updates: Admins can update user details and membership statuses directly in the application.
-- Responsive Design: The web application is designed with a user-friendly interface for both desktop and mobile devices.
+## Technologies Used
 
-# Technologies Used
-- **Django**: A high-level Python web framework for building the backend of the application.
-- **HTML, CSS, JavaScript**: For front-end development, ensuring a smooth and interactive user interface.
+- **Django**: A high-level Python web framework used to build the backend of the application, providing a robust and secure platform for user and membership management.
+- **HTML, CSS, JavaScript**: Front-end technologies that power the interactive, responsive user interface, ensuring the application is user-friendly and visually appealing.
 
+## Installation & Setup
+
+### Prerequisites
+
+- Python 3.12.6
+- Django
+- DBSqlite3
+
+### Steps to Run
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-repo/GIM.git
+    cd GIM
+    ```
+
+2. Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Run database migrations:
+    ```bash
+    python manage.py migrate
+    ```
+
+4. Create a superuser for admin access:
+    ```bash
+    python manage.py createsuperuser
+    ```
+
+5. Run the application:
+    ```bash
+    python manage.py runserver
+    ```
+
+6. Access the system by visiting `http://127.0.0.1:8000` in your browser.
