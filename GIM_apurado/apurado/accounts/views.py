@@ -163,9 +163,6 @@ def credit_card(request):
     return render(request, 'accounts/credit_card.html')
 
 
-def paypal(request):
-    return render(request, 'accounts/paypal.html')
-
 
 def process_credit_card_payment(request):
     if request.method == 'POST':

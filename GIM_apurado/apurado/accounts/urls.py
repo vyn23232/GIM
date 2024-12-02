@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     register, profile_view, membership_management, add_user,
-    payment_options, credit_card, paypal,
+    payment_options, credit_card,
     login_view, home_view, about_view, about2_view,
     process_credit_card_payment, payment_confirmation, payment_error, benefits, home2,
     book_trainer, trainer_schedule, payment_success, dashboard, logout_view
@@ -27,7 +27,6 @@ urlpatterns = [
     path('process_credit_card_payment/', process_credit_card_payment, name='process_credit_card_payment'),
     path('payment_confirmation/', payment_confirmation, name='payment_confirmation'),
     path('payment_error/', payment_error, name='payment_error'),
-    path('paypal/', paypal, name='paypal'),
 
     # Informational views
     path('about/', about_view, name='about'),
