@@ -243,9 +243,11 @@ def trainer_schedule(request):
     
     return render(request, 'accounts/trainer_schedule.html', {'form': form, 'classes': classes})
 
+@login_required
 def trainer_schedule_view(request):
     return render(request, 'accounts/trainer_schedule.html')
 
+@login_required
 def payment_success(request):
     user = request.user
     payment_method = request.GET.get('paymentMethod')
