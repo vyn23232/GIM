@@ -13,8 +13,13 @@ The **Membership Management System (GIM)** is a Django-based web application des
 ## Links
 
 - **UI/UX Design (Figma)**: [Figma Design](https://www.figma.com/design/vasctcpZrMjBhusc0ZcXgd/GMMYS-UI%2FUX?node-id=0-1&t=7iQ5nbq7QesXEvrQ-1)
+![figma](https://github.com/user-attachments/assets/ec634f86-b6bd-43a1-ae2e-2dc295ede21d)
+
 - **Entity Relationship Diagram (ERD)**: [View ERD](https://drive.google.com/file/d/1dy-xeEKZtHsnG8stu4BsWxdPTAubW09s/view?usp=sharing)
+![erd](https://github.com/user-attachments/assets/eb0a2320-2209-4759-989e-8ff38fdeb187)
+
 - **Gantt Chart**: [View Gantt Chart](https://drive.google.com/file/d/1dy-xeEKZtHsnG8stu4BsWxdPTAubW09s/view?usp=sharing)
+![gantt](https://github.com/user-attachments/assets/916b7417-beed-4a95-885c-3205fff4b88f)
 
 ## Technologies Used
 
