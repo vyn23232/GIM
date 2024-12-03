@@ -122,9 +122,11 @@
             <p><i class="fas fa-credit-card icon"></i><span><strong>Payment Method:</strong> {{ payment_method }}</span></p>
             <p><i class="fas fa-calendar-alt icon"></i><span><strong>Payment Date:</strong> {{ payment_date }}</span></p>
         </div>
-        <a href="{% url 'home2' %}" class="go-back-btn">
+        <a href="{% url 'home2' %}" class="go-back-btn"> 
+            
             <i class="fas fa-arrow-left"></i> Go Back
         </a>
+        <p><a href="{% url 'trainer_schedule' %}">View My Schedule</a></p>
     </div>
 </body>
 </html>

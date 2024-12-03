@@ -125,8 +125,7 @@
             <label for="nameInput">Change Name</label>
             <input type="text" id="nameInput" placeholder="Enter new name" value="{{ user.first_name }} {{ user.last_name }}">
             
-            <label for="imageInput">Change Profile Image</label>
-            <input type="file" id="imageInput">
+            
             
             <button class="save-btn" id="saveBtn">Save Changes</button>
         </div>
@@ -135,6 +134,8 @@
         <form method="post" action="{% url 'change_password' %}" class="edit-profile" id="passwordForm" style="display:none;">
             {% csrf_token %}
             <h3>Change Password</h3>
+
+            <br>
             <label for="currentPassword">Current Password</label>
             <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter current password">
             
