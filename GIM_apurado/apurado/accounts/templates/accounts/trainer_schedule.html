@@ -1,202 +1,110 @@
-{% load static %}
+<!-- accounts/templates/accounts/trainer_schedule.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trainer Schedule</title>
+    <title>My Trainer Schedule</title>
     <style>
-        /* Base styling */
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            color: #fff;
+            background-color: #f3f3f3;
+            color: #4A4A4A;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full height for centering */
         }
-
-        /* Header and Navigation Bar */
         header {
-            background-color: #ffffff;
-            padding: 10px 30px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1;
+            background-color: #6A1B9A;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
-
-        .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar h1 {
-            font-size: 1.8em;
-            color: #8952F7;
-            font-weight: bold;
+        h1 {
             margin: 0;
         }
-
-        .navbar nav a {
-            margin: 0 15px;
-            color: #333;
-            text-decoration: none;
-            font-size: 1em;
-        }
-
-        .navbar nav a:hover {
-            color: #8952F7;
-        }
-
-        .navbar .signup-btn {
-            background-color: #8952F7;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 1em;
-            transition: background-color 0.3s;
-        }
-
-        .navbar .signup-btn:hover {
-            background-color: #8952F7;
-        }
-
         .container {
-            max-width: 1200px;
-            margin: 80px auto 20px auto; /* Added top margin to avoid overlap with the header */
-            padding: 40px 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            text-align: center;
-            border-radius: 8px; /* Rounded corners for a modern look */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        h1 {
-            color: #8952F7;
-            font-weight: bold;
-        }
-
-        h2 {
-            color: #fff;
-        }
-
-        /* Schedule table styling */
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: rgba(0, 0, 0, 0.6);
-            margin: 20px 0;
+            margin-top: 20px;
         }
-
         th, td {
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            text-align: center;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
         }
-
         th {
-            background-color: #8952F7;
-            color: #fff;
+            background-color: #6A1B9A;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .message {
+            color: #FF5722;
             font-weight: bold;
         }
-
-        td {
-            color: #fff;
-            font-size: 1em;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-        }
-
-        tr:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .no-bookings {
-            color: #ccc;
-            font-style: italic;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-        }
-
-        /* Book Trainer Button */
-        .book-trainer {
-            margin: 20px 0;
-        }
-
-        .book-trainer a {
-            background-color: #8952F7;
-            color: white;
-            padding: 10px 15px;
+        a {
+            color: #6A1B9A;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            font-weight: bold;
         }
-
-        .book-trainer a:hover {
-            background-color: #8952F7;
+        a:hover {
+            color: #9C4B97;
         }
     </style>
-    {% load custom_filters %}
 </head>
 <body>
-    <!-- Header and Navigation Bar -->
     <header>
-        <div class="navbar">
-            <h1><img src="https://images.scalebranding.com/zeus-gym-logo-374f3141-0606-4b8b-afbf-a65274127256.jpg"  style="height: 60px; vertical-align: middle;">  GIM Membership </h1>
-            <nav>
-                <a href="http://127.0.0.1:8000/booking/">Home</a>
-                <a href="#">About</a>
-                <a href="#">Classes</a>
-                <a href="#">Schedules</a>
-                <a href="#">Contact</a>
-                <a href="#" class="signup-btn">Log Out</a>
-            </nav>
-        </div>
+        <h1>My Trainer Schedule</h1>
     </header>
 
-    <!-- Main Content Container -->
     <div class="container">
-        <h1>Gym Schedules</h1>
-
-        <!-- Display messages -->
+        <!-- Display any messages -->
         {% if messages %}
-            <div>
+            <div class="message">
+                <ul>
                 {% for message in messages %}
-                    <p>{{ message }}</p>
+                    <li>{{ message }}</li>
                 {% endfor %}
+                </ul>
             </div>
         {% endif %}
 
-        <!-- Booking Form -->
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }} <!-- Renders form fields with labels -->
-            <button type="submit">Book Trainer</button>
-        </form>
-
-        <!-- Display Schedule -->
-        <div class="schedule">
-            {% for class in classes %}
-                <div class="class">
-                    <h2>{{ class.class_name }}</h2>
-                    <p>{{ class.description }}</p>
-                    <p>Schedule: {{ class.schedule }}</p>
-                    <p>Instructor: {{ class.instructor }}</p>
-                    <p>Max Participants: {{ class.max_participants }}</p>
-                </div>
-            {% endfor %}
-        </div>
+        <!-- If the user has bookings, display them -->
+        {% if bookings %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Trainer</th>
+                        <th>Exercise</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.trainer.name }}</td>
+                        <td>{{ booking.exercise.name }}</td>
+                        <td>{{ booking.date }}</td>
+                        <td>{{ booking.time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No bookings found for you.</p>
+        {% endif %}
+        
+        <p><a href="{% url 'book_trainer' %}">Book Another Session</a></p>
     </div>
 </body>
 </html>

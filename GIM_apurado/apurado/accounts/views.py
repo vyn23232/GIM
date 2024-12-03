@@ -5,9 +5,14 @@ from django.contrib.auth.decorators import login_required
 from .models import User, Dashboard, Booking, Payment, Class
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .forms import BookTrainerForm
 from django.utils.timezone import now
 from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import render, redirect
+from .models import Trainer, Booking, Exercise
+from django.contrib.auth.models import User
+from datetime import date, timedelta
+from .forms import BookingForm
+from django.contrib.auth import get_user
 
 @login_required
 def home2(request):
@@ -202,51 +207,90 @@ def about2_view(request):
 def benefits(request):
     return render(request, 'accounts/gym_benefits.html')
 
+
 @login_required
+def user_bookings(request):
+    # Fetch bookings for the logged-in user
+    bookings = Booking.objects.filter(user=request.user).order_by('date', 'time')
+    
+    return render(request, 'accounts/user_bookings.html', {'bookings': bookings})
+
+@login_required
+def trainer_schedule(request, trainer_id=None):
+    # Check if a trainer_id is provided, otherwise, show the user's own bookings
+    if trainer_id:
+        try:
+            trainer = Trainer.objects.get(id=trainer_id)
+            # Fetch bookings for this specific trainer
+            bookings = Booking.objects.filter(trainer=trainer).order_by('date', 'time')
+        except Trainer.DoesNotExist:
+            return render(request, 'error.html', {'message': 'Trainer not found.'})
+    else:
+        # Fetch all bookings for the logged-in user (this is the user's schedule)
+        bookings = Booking.objects.filter(user=request.user).order_by('date', 'time')
+    
+    return render(request, 'accounts/trainer_schedule.html', {'bookings': bookings})
+
+
+@login_required  # Ensure the user is authenticated
 def book_trainer(request):
     if request.method == 'POST':
-        form = BookTrainerForm(request.POST)
-        if form.is_valid():
-            user = request.user
-            class_instance = form.cleaned_data['class_id']
-            booking = Booking(
-                user=user,
-                class_id=class_instance,
-                status=form.cleaned_data['status']
-            )
-            booking.save()
-            messages.success(request, 'Booking successful!')
-            return redirect('trainer_schedule')  # Redirect back to the schedule page
-    else:
-        form = BookTrainerForm()
+        trainer_id = request.POST.get('trainer_id')
+        exercise_id = request.POST.get('exercise_id')
+        date = request.POST.get('date')
+        time = request.POST.get('time')
+        
+        try:
+            # Fetch the trainer and exercise objects
+            trainer = Trainer.objects.get(id=trainer_id)
+            exercise = Exercise.objects.get(id=exercise_id)
+        except Trainer.DoesNotExist:
+            messages.error(request, "Trainer not found!")
+            return redirect('book_trainer')
+        except Exercise.DoesNotExist:
+            messages.error(request, "Exercise not found!")
+            return redirect('book_trainer')
+        
+        # Explicitly fetch the user instance by ID (this may not be necessary)
+        user_instance = User.objects.get(id=request.user.id)
+        
+        # Check if the trainer is already booked for the selected time slot
+        if Booking.objects.filter(trainer=trainer, date=date, time=time).exists():
+            messages.error(request, "This trainer is already booked for the selected time.")
+            return redirect('book_trainer')
+        
+        # Create and save the booking
+        booking = Booking(
+            user=user_instance,  # Now explicitly using the user_instance
+            trainer=trainer,
+            exercise=exercise,
+            date=date,
+            time=time
+        )
+        booking.save()
+
+        # Display a success message
+        messages.success(request, "Your booking was successful!")
+        
+        # Redirect to the trainer schedule page
+        return redirect('trainer_schedule')
     
-    return render(request, 'accounts/book_trainer.html', {'form': form})
+    # If the method is GET, show the booking form with the list of trainers and exercises
+    trainers = Trainer.objects.all()
+    exercises = Exercise.objects.all()
+    return render(request, 'accounts/book_trainer.html', {'trainers': trainers, 'exercises': exercises})
+
 
 @login_required
 def trainer_schedule(request):
-    classes = Class.objects.all()
-    if request.method == 'POST':
-        form = BookTrainerForm(request.POST)
-        if form.is_valid():
-            user = request.user
-            class_instance = form.cleaned_data['class_id']
-            booking = Booking(
-                user=user,
-                class_id=class_instance,
-                status=form.cleaned_data['status']
-            )
-            booking.save()
-            messages.success(request, 'Booking successful!')
-            return redirect('trainer_schedule')  # Redirect back to the schedule page
-    else:
-        form = BookTrainerForm()
+    # Fetch all bookings for the logged-in user
+    bookings = Booking.objects.filter(user=request.user).order_by('date', 'time')
     
-    return render(request, 'accounts/trainer_schedule.html', {'form': form, 'classes': classes})
-
-@login_required
-def trainer_schedule_view(request):
-    return render(request, 'accounts/trainer_schedule.html')
-
+    # If the user has no bookings, display a message
+    if not bookings:
+        messages.info(request, "You have no upcoming bookings.")
+    
+    return render(request, 'accounts/trainer_schedule.html', {'bookings': bookings})
 @login_required
 def payment_success(request):
     user = request.user

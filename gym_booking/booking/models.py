@@ -1,13 +1,13 @@
-# booking/models.py
 from django.db import models
 from django.contrib.auth.models import User
 
 class Trainer(models.Model):
     name = models.CharField(max_length=100)
-    specialty = models.CharField(max_length=100, blank=True, null=True)
+    specialty = models.CharField(max_length=100)  # e.g., "Yoga", "Strength Training"
+    availability = models.JSONField(default=dict)  # Can store available days/times
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.specialty})"
 
 class Exercise(models.Model):
     name = models.CharField(max_length=100)
@@ -17,14 +17,14 @@ class Exercise(models.Model):
         return self.name
 
 class Booking(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Allow NULL values
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
-    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)  # Consistent with form
     date = models.DateField()
     time = models.TimeField()
 
     class Meta:
-        unique_together = ('trainer', 'date', 'time')
+        unique_together = ('trainer', 'date', 'time')  # Prevent double-booking of trainers
 
     def __str__(self):
-        return f"{self.trainer.name} booked for {self.exercise.name} on {self.date} at {self.time}"
+        return f"{self.user.username} booked {self.trainer.name} for {self.exercise.name} on {self.date} at {self.time}"

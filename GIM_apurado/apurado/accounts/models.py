@@ -1,7 +1,9 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.models import BaseUserManager
-
+from datetime import time,date
+from django.contrib.auth import get_user_model
 
 class CustomLoginView(LoginView):
     template_name = 'login.html'
@@ -36,12 +38,25 @@ class Membership(models.Model):
     membership_type = models.CharField(max_length=50)
     renewal_date = models.DateField()
 
+
+class Trainer(models.Model):
+    name = models.CharField(max_length=255)
+
+class Exercise(models.Model):
+    name = models.CharField(max_length=255)
+
 class Booking(models.Model):
-    booking_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')  # Mandatory one-to-optional many
-    class_id = models.ForeignKey('Class', on_delete=models.SET_NULL, null=True, related_name='bookings')  # Mandatory one, optional one
-    booking_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=15)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    date = models.DateField(null=True)
+    time = models.TimeField(null=True)
+
+    def __str__(self):
+        return f"Booking with {self.trainer.name} for {self.exercise.name} on {self.date} at {self.time}"
+
+
+
 
 class Class(models.Model):
     class_id = models.AutoField(primary_key=True)

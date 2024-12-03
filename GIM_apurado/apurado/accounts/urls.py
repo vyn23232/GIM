@@ -6,7 +6,7 @@ from .views import (
     process_credit_card_payment, payment_confirmation, payment_error, benefits, home2,
     book_trainer, trainer_schedule, payment_success, dashboard, logout_view, change_password
 )
-
+from . import views
 urlpatterns = [
     # Home view
     path('', home_view, name='home'),  # Root URL for the homepage
@@ -37,10 +37,15 @@ urlpatterns = [
     path('book_trainer/', book_trainer, name='book_trainer'),
     path('trainer_schedule/', trainer_schedule, name='trainer_schedule'),
     path('payment_success/', payment_success, name='payment_success'),
-    path('dashboard/', dashboard, name='dashboard'),  # Use 'dashboard' instead
+    path('dashboard/', dashboard, name='dashboard'),
+    path('book_trainer/', views.book_trainer, name='book_trainer'),
+    path('trainer_schedule/', views.trainer_schedule, name='trainer_schedule'),
+    path('trainer_schedule/<int:trainer_id>/', views.trainer_schedule, name='trainer_schedule'),
+    path('trainer_schedule/<int:trainer_id>/', views.trainer_schedule, name='trainer_schedule_trainer'), 
+
     
     # Logout view
-    path('logout', logout_view, name='logout'),
+    path('logout/', logout_view, name='logout'),
 
     # Change password view
     path('change_password/', change_password, name='change_password'),

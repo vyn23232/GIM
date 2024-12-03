@@ -1,182 +1,115 @@
-{% load static %}
+<!-- accounts/templates/accounts/book_trainer.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book a Trainer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* General Styling */
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #000; /* Fallback color */
-            color: #ffffff;
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            color: #4A4A4A;
             margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-            overflow: hidden; /* Prevent scrollbars if needed */
+            padding: 0;
         }
-        
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('{% static "images/bg2.avif" %}');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            opacity: 0.90; /* Adjust opacity here */
-            z-index: -1; /* Push the pseudo-element behind content */
-        }
-
-        /* Flexbox Container */
-        .container {
-            background: rgb(255 255 255 / 92%);
-            padding: 40px;
-            border-radius: 15px;
-            max-width: 600px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: #4D2E8D; 
-            margin-bottom: 20px;
+        header {
+            background-color: #6A1B9A;
+            color: white;
+            padding: 20px;
             text-align: center;
         }
-
+        h1 {
+            margin: 0;
+        }
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
         form {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping for responsiveness */
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
             flex-direction: column;
-            flex: 1 1 calc(50% - 20px); /* 50% width minus gap space */
-            min-width: 200px; /* Ensures proper spacing on smaller screens */
+            gap: 15px;
         }
-
         label {
-            font-size: 1rem;
-            color: #000000;
-            margin-bottom: 5px;
+            font-weight: bold;
         }
-
-        input, select, textarea {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
+        select, input, button {
             padding: 10px;
-            border: 1px solid #4D2E8D;
+            font-size: 16px;
             border-radius: 5px;
-            width: 100%;
-            box-sizing: border-box;
+            border: 1px solid #ccc;
         }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: #4D2E8D;
-            outline: none;
-        }
-
         button {
-            font-family: 'Poppins', sans-serif;
-            background: #4D2E8D;
-            color: #fff;
-            font-size: 1.2rem;
-            padding: 12px;
+            background-color: #6A1B9A;
+            color: white;
             border: none;
-            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
         }
-
         button:hover {
-            background: #3b8132;
-            transform: translateY(-5px);
+            background-color: #9C4B97;
         }
-
-        /* Responsive Design */
-        @media screen and (max-width: 600px) {
-            form {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .form-group {
-                flex: 1 1 100%;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .container {
-                padding: 20px;
-            }
-
-            button {
-                font-size: 1rem;
-                padding: 10px;
-            }
+        .message {
+            color: #FF5722;
+            font-weight: bold;
+        }
+        a {
+            color: #6A1B9A;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #9C4B97;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>Book a Trainer</h1>
+    </header>
+
+    <div class="container">
+        <!-- Display any error or success messages -->
+        {% if messages %}
+            <div class="message">
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
         <form method="POST">
             {% csrf_token %}
+            <label for="trainer_id">Trainer</label>
+            <select name="trainer_id" required>
+                {% for trainer in trainers %}
+                    <option value="{{ trainer.id }}">{{ trainer.name }}</option>
+                {% endfor %}
+            </select>
 
-            <!-- Form Fields -->
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name">
-            </div>
+            <label for="exercise_id">Exercise</label>
+            <select name="exercise_id" required>
+                {% for exercise in exercises %}
+                    <option value="{{ exercise.id }}">{{ exercise.name }}</option>
+                {% endfor %}
+            </select>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email">
-            </div>
+            <label for="date">Date</label>
+            <input type="date" name="date" required>
 
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" id="date" name="date">
-            </div>
+            <label for="time">Time</label>
+            <input type="time" name="time" required>
 
-            <div class="form-group">
-                <label for="time">Time</label>
-                <input type="time" id="time" name="time">
-            </div>
-
-            <div class="form-group">
-                <label for="class">Class</label>
-                <select id="class" name="class">
-                    <option value="yoga">Yoga</option>
-                    <option value="pilates">Pilates</option>
-                    <option value="strength">Strength Training</option>
-                </select>
-            </div>
-
-            <div class="form-group" style="flex: 1 1 100%;"> <!-- Full-width textarea -->
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" placeholder="Enter additional details"></textarea>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit">Book Trainer</button>
+            <button type="submit">Book Now</button>
         </form>
+
+        <p><a href="{% url 'trainer_schedule' %}">View My Schedule</a></p>
     </div>
 </body>
 </html>
